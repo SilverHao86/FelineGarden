@@ -23,6 +23,11 @@ public class UIController : MonoBehaviour
     [SerializeField] private Vector2 mousePos;
     [SerializeField] private int currentStep = 0;
 
+    // Swap between gardener and cat
+    [SerializeField] private KeyCode swapCamKey;
+    [SerializeField] private Camera gardenerCam;
+    [SerializeField] private Camera catCam;
+    public int activeCharIndex;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +48,16 @@ public class UIController : MonoBehaviour
             paused = !paused;
             Time.timeScale = paused ? 0f : 1f; // If paused is true, stop time scale, if it is false, set the timescale to normal values
             pauseMenu.SetActive(paused);
+        }
+
+        if(!paused)
+        {
+            if(Input.GetKeyDown(swapCamKey))
+            {
+                gardenerCam.enabled = !gardenerCam.enabled;
+                catCam.enabled = !catCam.enabled;
+                activeCharIndex = (gardenerCam.enabled ? 0 : 1);
+            }
         }
         
         //for (int i = 0; i < checklist.Count; i++)

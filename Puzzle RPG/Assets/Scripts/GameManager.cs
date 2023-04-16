@@ -36,15 +36,15 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(SwapCamKey))
             {
-                if (gardenerChar.isOnGround() && catChar.isOnGround())
-                {
+                //if (gardenerChar.isOnGround() && catChar.isOnGround())
+               // {
                     gardenerChar.Cam.enabled = !gardenerChar.Cam.enabled;
                     gardenerChar.active = gardenerChar.Cam.enabled;
                     catChar.Cam.enabled = !catChar.Cam.enabled;
                     catChar.active = catChar.Cam.enabled;
                     catChar.ToggleMovement();
                     gardenerChar.ToggleMovement();
-                }
+                //}
                
             }
         }

@@ -5,14 +5,14 @@ using UnityEngine;
 public class Cat : Character
 {
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        base.Awake();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
     }
 }

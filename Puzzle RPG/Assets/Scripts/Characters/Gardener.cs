@@ -10,9 +10,14 @@ public class Gardener : Character
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        base.Update();
+        base.Awake();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 }

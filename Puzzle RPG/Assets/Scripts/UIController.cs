@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    [SerializeField] private KeyCode pauseKey;
-    private bool paused = false;
-    [SerializeField] private GameObject pauseMenu;
+    [field: SerializeField] public KeyCode PauseKey { get; private set; }
+    public bool Paused { get; set; }
+    [SerializeField] public GameObject pauseMenu { get; private set; }
 
     [SerializeField] private List<CanvasGroup> canvasGroups;
     [SerializeField] private float fadeRate = 1.0f;
@@ -24,13 +24,12 @@ public class UIController : MonoBehaviour
     [SerializeField] private int currentStep = 0;
 
     // Swap between gardener and cat
-    [SerializeField] private KeyCode swapCamKey;
-    [SerializeField] private Camera gardenerCam;
-    [SerializeField] private Camera catCam;
-    public int activeCharIndex;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
+        Paused = false;
         for(int i = 1; i < canvasGroups.Count; i++)
         {
             canvasGroups[i].alpha = 0;
@@ -43,22 +42,7 @@ public class UIController : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(pauseKey))
-        {
-            paused = !paused;
-            Time.timeScale = paused ? 0f : 1f; // If paused is true, stop time scale, if it is false, set the timescale to normal values
-            pauseMenu.SetActive(paused);
-        }
-
-        if(!paused)
-        {
-            if(Input.GetKeyDown(swapCamKey))
-            {
-                gardenerCam.enabled = !gardenerCam.enabled;
-                catCam.enabled = !catCam.enabled;
-                activeCharIndex = (gardenerCam.enabled ? 0 : 1);
-            }
-        }
+        
         
         //for (int i = 0; i < checklist.Count; i++)
         //{

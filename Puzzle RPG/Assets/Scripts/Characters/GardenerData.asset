@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1d27e3313b2b249913c9508c0c40f3, type: 3}
+  m_Name: GardenerData
+  m_EditorClassIdentifier: 
+  <movementSpeed>k__BackingField: 5
+  <accelRate>k__BackingField: 2
+  <decelRate>k__BackingField: 5
+  <velocityPower>k__BackingField: 1.2
+  <frictionAmm>k__BackingField: 0.3
+  <jumpForce>k__BackingField: 5
+  <jumpCut>k__BackingField: 0.1
+  <fallMult>k__BackingField: 1.9
+  <boxCollider>k__BackingField: {fileID: -4716959951092709616, guid: c12d5f8a692739c4d84b176f210e0a61, type: 3}
+  <groundLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 64
+  <isGrounded>k__BackingField: 1

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -29,7 +30,10 @@ public class Character : MonoBehaviour
     private float movementSpeed, accelRate, decelRate, velocityPower, frictionAmm, jumpForce, jumpCut, fallMult, maxJumpSecs, jumpCoolMax;
     private LayerMask groundLayer;
     private LayerMask plotLayer;
+    private LayerMask beanStalkLayer;
     private BoxCollider2D boxCollider;
+
+    private float pauseVineCollision;
 
 
     // Start is called before the first frame update
@@ -63,6 +67,7 @@ public class Character : MonoBehaviour
         fallMult = data.fallMult;
         groundLayer = data.groundLayer;
         plotLayer = data.plotLayer;
+        beanStalkLayer = data.beanstalkLayer;
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
         data.isGrounded = true;
         data.canClimb = false;
@@ -73,8 +78,27 @@ public class Character : MonoBehaviour
     protected void FixedUpdate()
     {
         CameraLogic();
-        HorizontileMovement();
-        VerticalMovement();   
+        bool isOnGround = isOnLayerMask(groundLayer);
+        bool isOnStalk = isOnLayerMask(beanStalkLayer);
+
+        if (active && (0.0f <= pauseVineCollision))
+        {
+            pauseVineCollision -= Time.deltaTime;
+            isOnStalk = false;
+        }
+
+        HorizontileMovement(isOnGround);
+        VerticalMovement(isOnGround, isOnStalk);
+        if (!jump.inProgress && active)
+        {
+            BeanStalkMovement(isOnStalk);
+        }
+        
+
+        
+
+
+
     }
 
     protected void CameraLogic()
@@ -88,32 +112,35 @@ public class Character : MonoBehaviour
         */
     }
 
-    protected void VerticalMovement()
+    protected void VerticalMovement(bool onGround, bool onStalk)
     {
-        bool isOnGround = isOnLayerMask(groundLayer);
-        if ((jump.inProgress) && isOnGround && active)
+        if ((jump.inProgress) && (onGround || onStalk) && active)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             data.isGrounded = false;
             anim.SetBool("Running", false);
             //lizardAnimator.SetBool("Jumping", true);
+            if (onStalk)
+            {
+                pauseVineCollision = 1f;
+            }
         }
 
         // Apply Jumpcut
-        if (rb.velocity.y > 0 && !isOnGround && !(jump.inProgress))
+        if (rb.velocity.y > 0 && !onGround && !(jump.inProgress))
         {
             // jump cut should be 1-0
             rb.AddForce(Vector2.down * rb.velocity.y * (1 - jumpCut), ForceMode2D.Impulse);
         }
 
         // Apply Gravity
-        if (!isOnGround)
+        if (!onGround)
         {
             rb.gravityScale = (rb.velocity.y < 0) ? fallMult : 1;
         }
     }
 
-    protected void HorizontileMovement()
+    protected void HorizontileMovement(bool onGround)
     {
         if (active)
         {
@@ -153,19 +180,48 @@ public class Character : MonoBehaviour
         }
 
         // Still apply friction
-        if (isOnLayerMask(groundLayer) && Mathf.Abs(move.ReadValue<Vector2>().x) < 0.0f)
+        if (onGround && Mathf.Abs(move.ReadValue<Vector2>().x) < 0.0f)
         {
             float friction = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmm)) * Mathf.Sign(rb.velocity.x);
 
             rb.AddForce(Vector2.right * -friction, ForceMode2D.Impulse);
         }
     }
-    
+
+    // https://www.youtube.com/watch?v=Ln7nv-Y2tf4
+    public void BeanStalkMovement(bool onStalk)
+    {
+        if (onStalk)
+        {
+            data.canClimb = true;
+            // Hitting Up
+            if(move.ReadValue<Vector2>().y > 0) { data.isClimbing = true; }
+            else {
+                if(move.ReadValue<Vector2>().x != 0) { data.isClimbing = false; } 
+            }
+        }
+        else
+        {
+            data.isClimbing = false;
+            data.canClimb = false;
+        }
+
+        if(data.isClimbing)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, move.ReadValue<Vector2>().y * movementSpeed);
+            if (!jump.inProgress) rb.gravityScale = 0;
+        }
+        else
+        {
+            if (!jump.inProgress) rb.gravityScale = fallMult;
+        }
+    }
+
     public void ToggleMovement()
     {
         if (!active)
         {
-            if (isOnLayerMask(groundLayer))
+            if (isOnLayerMask(groundLayer) || isOnLayerMask(beanStalkLayer))
             {
                 rb.velocity = Vector2.zero;
                 rb.angularVelocity = 0f;
@@ -184,7 +240,7 @@ public class Character : MonoBehaviour
     }
 
 
-        public bool isOnLayerMask(LayerMask layer)
+    public bool isOnLayerMask(LayerMask layer)
     {
         RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, 0.1f, layer) ;
         return hit.collider != null;

@@ -27,6 +27,9 @@ MonoBehaviour:
   <plotLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 128
-  <isGrounded>k__BackingField: 1
+  <beanstalkLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 256
+  <isGrounded>k__BackingField: 0
   <isClimbing>k__BackingField: 0
-  <canClimb>k__BackingField: 0
+  <canClimb>k__BackingField: 1

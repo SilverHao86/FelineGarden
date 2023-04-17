@@ -36,7 +36,8 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(SwapCamKey))
             {
-                if (gardenerChar.isOnLayerMask(gardenerChar.data.groundLayer) && catChar.isOnLayerMask(gardenerChar.data.groundLayer))
+                if ((gardenerChar.isOnLayerMask(gardenerChar.data.groundLayer) || gardenerChar.isOnLayerMask(gardenerChar.data.beanstalkLayer))
+                    && (catChar.isOnLayerMask(catChar.data.groundLayer) || catChar.isOnLayerMask(catChar.data.beanstalkLayer)))
                 {
                     gardenerChar.Cam.enabled = !gardenerChar.Cam.enabled;
                     gardenerChar.active = gardenerChar.Cam.enabled;

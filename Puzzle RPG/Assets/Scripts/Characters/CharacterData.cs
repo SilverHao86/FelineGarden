@@ -18,6 +18,7 @@ public class CharacterData : ScriptableObject
     [field: SerializeField] public BoxCollider2D boxCollider { get; private set; }
     [field: SerializeField] public LayerMask groundLayer { get; private set; }
     [field: SerializeField] public LayerMask plotLayer { get; private set; }
+    [field: SerializeField] public LayerMask beanstalkLayer { get; private set; }
 
     [field: SerializeField, HideInInspector] public PlayerInput playerControls { get; set; }
     [field: SerializeField, HideInInspector] public bool isGrounded { get; set; }

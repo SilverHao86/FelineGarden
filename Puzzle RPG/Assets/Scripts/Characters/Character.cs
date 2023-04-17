@@ -210,7 +210,7 @@ public class Character : MonoBehaviour
     {
         if (collision.gameObject.tag == "PlantBase" && active)
         {
-            Debug.Log(plantPlant.inProgress);
+            //Debug.Log(plantPlant.inProgress);
             if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive)
             {
                 collision.gameObject.gameObject.GetComponent<PlantPlot>().PlantPlant();

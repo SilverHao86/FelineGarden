@@ -95,7 +95,7 @@ public class Character : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             data.isGrounded = false;
-            //lizardAnimator.SetBool("Running", false);
+            anim.SetBool("Running", false);
             //lizardAnimator.SetBool("Jumping", true);
         }
 
@@ -123,7 +123,7 @@ public class Character : MonoBehaviour
 
             if (Mathf.Abs(speed) > 0)
             {
-                //anim.SetBool("isWalking", true);
+                anim.SetBool("Running", true);
                 if (speed > 0)
                 {
                     transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0f));
@@ -139,7 +139,7 @@ public class Character : MonoBehaviour
             }
             else
             {
-                //anim.SetBool("isWalking", false);
+                anim.SetBool("Running", false);
 
             }
             float acceration = Mathf.Abs(speed);

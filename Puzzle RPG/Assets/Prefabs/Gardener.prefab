@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4597109299420616328}
   - component: {fileID: -4716959951092709616}
   - component: {fileID: -9029026136156153479}
+  - component: {fileID: 8671746039974083096}
   m_Layer: 0
   m_Name: Gardener
   m_TagString: Player
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1811144831, guid: 539dc556dbeeb6c48a2fc2123dd3d6aa, type: 3}
+  m_Sprite: {fileID: 1539759130, guid: 4bbbc327fa398ad42b8fa4fd5e79d538, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,7 +104,7 @@ MonoBehaviour:
   active: 0
   paused: 0
   data: {fileID: 11400000, guid: 9f2ab107976962a4fb06d2130d102d1e, type: 2}
-  anim: {fileID: 0}
+  anim: {fileID: 8671746039974083096}
 --- !u!61 &-4716959951092709616
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -117,18 +118,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.042051375}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2, y: 0.38}
+    oldSize: {x: 0.32, y: 0.64}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.38}
+  m_Size: {x: 0.2, y: 0.45336616}
   m_EdgeRadius: 0
 --- !u!50 &-9029026136156153479
 Rigidbody2D:
@@ -151,3 +152,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &8671746039974083096
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7939073940180743610}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 32e3b480584f07541afbfefdd9c65766, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

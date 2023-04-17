@@ -53,6 +53,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlantOnPlot"",
+                    ""type"": ""Button"",
+                    ""id"": ""a2f1ef1b-42bc-4d9c-803c-3107d4b9753d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -209,6 +218,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""SwapCharater"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f7d4d5dd-1ba5-41b1-aa88-144dd641b5dd"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlantOnPlot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -220,6 +240,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_SwapCharater = m_Player.FindAction("SwapCharater", throwIfNotFound: true);
+        m_Player_PlantOnPlot = m_Player.FindAction("PlantOnPlot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -282,6 +303,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_SwapCharater;
+    private readonly InputAction m_Player_PlantOnPlot;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -289,6 +311,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @SwapCharater => m_Wrapper.m_Player_SwapCharater;
+        public InputAction @PlantOnPlot => m_Wrapper.m_Player_PlantOnPlot;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -307,6 +330,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @SwapCharater.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwapCharater;
                 @SwapCharater.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwapCharater;
                 @SwapCharater.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwapCharater;
+                @PlantOnPlot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlantOnPlot;
+                @PlantOnPlot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlantOnPlot;
+                @PlantOnPlot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlantOnPlot;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -320,6 +346,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @SwapCharater.started += instance.OnSwapCharater;
                 @SwapCharater.performed += instance.OnSwapCharater;
                 @SwapCharater.canceled += instance.OnSwapCharater;
+                @PlantOnPlot.started += instance.OnPlantOnPlot;
+                @PlantOnPlot.performed += instance.OnPlantOnPlot;
+                @PlantOnPlot.canceled += instance.OnPlantOnPlot;
             }
         }
     }
@@ -329,5 +358,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSwapCharater(InputAction.CallbackContext context);
+        void OnPlantOnPlot(InputAction.CallbackContext context);
     }
 }

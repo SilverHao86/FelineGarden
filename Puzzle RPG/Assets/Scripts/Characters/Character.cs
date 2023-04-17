@@ -22,11 +22,13 @@ public class Character : MonoBehaviour
     private InputAction move;
     private InputAction jump;
     private InputAction swapCharacter;
+    private InputAction plantPlant;
 
     // Player Movement Floats
     // Values editable in Scriptable Object
     private float movementSpeed, accelRate, decelRate, velocityPower, frictionAmm, jumpForce, jumpCut, fallMult, maxJumpSecs, jumpCoolMax;
     private LayerMask groundLayer;
+    private LayerMask plotLayer;
     private BoxCollider2D boxCollider;
 
 
@@ -42,10 +44,12 @@ public class Character : MonoBehaviour
         move = data.playerControls.Player.Move;
         jump = data.playerControls.Player.Jump;
         swapCharacter = data.playerControls.Player.SwapCharater;
+        plantPlant = data.playerControls.Player.PlantOnPlot;
 
         move.Enable();
         jump.Enable();
         swapCharacter.Enable();
+        plantPlant.Enable();
 
         rb = this.gameObject.GetComponent<Rigidbody2D>();
 
@@ -58,19 +62,19 @@ public class Character : MonoBehaviour
         jumpCut = data.jumpCut;
         fallMult = data.fallMult;
         groundLayer = data.groundLayer;
+        plotLayer = data.plotLayer;
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
         data.isGrounded = true;
+        data.canClimb = false;
+        data.isClimbing = false;
     }
 
     // Update is called once per frame
     protected void FixedUpdate()
     {
         CameraLogic();
-        if(active && !paused)
-        {
-            HorizontileMovement();
-            VerticalMovement();
-        }   
+        HorizontileMovement();
+        VerticalMovement();   
     }
 
     protected void CameraLogic()
@@ -86,7 +90,8 @@ public class Character : MonoBehaviour
 
     protected void VerticalMovement()
     {
-        if ((jump.inProgress) && isOnGround())
+        bool isOnGround = isOnLayerMask(groundLayer);
+        if ((jump.inProgress) && isOnGround && active)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             data.isGrounded = false;
@@ -95,14 +100,14 @@ public class Character : MonoBehaviour
         }
 
         // Apply Jumpcut
-        if (rb.velocity.y > 0 && !isOnGround() && !(jump.inProgress))
+        if (rb.velocity.y > 0 && !isOnGround && !(jump.inProgress))
         {
             // jump cut should be 1-0
             rb.AddForce(Vector2.down * rb.velocity.y * (1 - jumpCut), ForceMode2D.Impulse);
         }
 
         // Apply Gravity
-        if (!data.isGrounded)
+        if (!isOnGround)
         {
             rb.gravityScale = (rb.velocity.y < 0) ? fallMult : 1;
         }
@@ -110,39 +115,45 @@ public class Character : MonoBehaviour
 
     protected void HorizontileMovement()
     {
-        float speed = move.ReadValue<Vector2>().x * movementSpeed;
-        // Speed difference
-        float speedDif = speed - rb.velocity.x;
-
-        if (System.Math.Abs(speed) > 0)
+        if (active)
         {
-            //anim.SetBool("isWalking", true);
-            if (speed > 0)
-            {
-                this.transform.localScale = new Vector3(5, 5, 5);
+            float speed = move.ReadValue<Vector2>().x * movementSpeed;
+            // Speed difference
+            float speedDif = speed - rb.velocity.x;
 
+            if (Mathf.Abs(speed) > 0)
+            {
+                //anim.SetBool("isWalking", true);
+                if (speed > 0)
+                {
+                    transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0f));
+                    //this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                    //this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+                }
             }
             else
             {
-                this.transform.localScale = new Vector3(-5, 5, 5);
+                //anim.SetBool("isWalking", false);
 
             }
+            float acceration = Mathf.Abs(speed);
+
+            // Swtich acceleration based on direction
+            acceration = (acceration > 0) ? accelRate : decelRate;
+
+            float horizontileMovement = Mathf.Pow(Mathf.Abs(speedDif) * acceration, velocityPower) * Mathf.Sign(speedDif);
+
+            rb.AddForce(horizontileMovement * Vector2.right);
         }
-        else
-        {
-            //anim.SetBool("isWalking", false);
 
-        }
-        float acceration = Mathf.Abs(speed);
-
-        // Swtich acceleration based on direction
-        acceration = (acceration > 0) ? accelRate : decelRate;
-
-        float horizontileMovement = Mathf.Pow(Mathf.Abs(speedDif) * acceration, velocityPower) * Mathf.Sign(speedDif);
-
-        rb.AddForce(horizontileMovement * Vector2.right);
-
-        if (isOnGround() && Mathf.Abs(move.ReadValue<Vector2>().x) < 0.0f)
+        // Still apply friction
+        if (isOnLayerMask(groundLayer) && Mathf.Abs(move.ReadValue<Vector2>().x) < 0.0f)
         {
             float friction = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmm)) * Mathf.Sign(rb.velocity.x);
 
@@ -154,10 +165,11 @@ public class Character : MonoBehaviour
     {
         if (!active)
         {
-            if (isOnGround())
+            if (isOnLayerMask(groundLayer))
             {
                 rb.velocity = Vector2.zero;
                 rb.angularVelocity = 0f;
+                rb.bodyType = RigidbodyType2D.Kinematic;
                 rb.Sleep();
 
             }
@@ -165,14 +177,16 @@ public class Character : MonoBehaviour
         else
         {
             rb.WakeUp();
+            rb.bodyType = RigidbodyType2D.Dynamic;
         }
 
         
     }
 
-    public bool isOnGround()
+
+        public bool isOnLayerMask(LayerMask layer)
     {
-        RaycastHit2D hit = Physics2D.BoxCast(boxCollider.transform.position, boxCollider.size, 0f, Vector2.down, 0.1f, groundLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, 0.1f, layer) ;
         return hit.collider != null;
 
     }
@@ -183,12 +197,27 @@ public class Character : MonoBehaviour
         if (collision.collider.tag == "Ground")
         {
             // Need to fix this 
-            data.isGrounded = true;
+            //data.isGrounded = true;
 
             //anim.SetBool("isJumping", false);
             //anim.SetBool("isAscending", false);
 
         }
+
+    }
+
+    protected virtual void OnTriggerStay2D(UnityEngine.Collider2D collision)
+    {
+        if (collision.gameObject.tag == "PlantBase" && active)
+        {
+            Debug.Log(plantPlant.inProgress);
+            if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive)
+            {
+                collision.gameObject.gameObject.GetComponent<PlantPlot>().PlantPlant();
+            }
+        }
+
+        
     }
 
     protected virtual void OnCollisionExit2D(Collision2D collision)

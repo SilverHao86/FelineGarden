@@ -20,4 +20,11 @@ public class Gardener : Character
     {
         base.FixedUpdate();
     }
+
+    void OnTriggerStay2D(UnityEngine.Collider2D collision)
+    {
+
+        base.OnTriggerStay2D(collision);
+
+    }
 }

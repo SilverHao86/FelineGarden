@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PlantOnPlot",
+                    "type": "Button",
+                    "id": "a2f1ef1b-42bc-4d9c-803c-3107d4b9753d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -185,6 +194,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SwapCharater",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f7d4d5dd-1ba5-41b1-aa88-144dd641b5dd",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlantOnPlot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

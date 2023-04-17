@@ -809,6 +809,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1517619177}
     - target: {fileID: 8677174434690043777, guid: 362020e0387c03a439f23cb8b9fdb5a1, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 4810259292905169874}
+    - target: {fileID: 8677174434690043777, guid: 362020e0387c03a439f23cb8b9fdb5a1, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
@@ -825,6 +829,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33584ada8a619cb4587785c4eedb616c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &4810259292905169874 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6657615083535925716, guid: 362020e0387c03a439f23cb8b9fdb5a1, type: 3}
+  m_PrefabInstance: {fileID: 4810259292905169868}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6146844495020592200
 PrefabInstance:
   m_ObjectHideFlags: 0

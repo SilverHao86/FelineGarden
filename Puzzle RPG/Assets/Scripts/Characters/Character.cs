@@ -27,11 +27,12 @@ public class Character : MonoBehaviour
 
     // Player Movement Floats
     // Values editable in Scriptable Object
-    private float movementSpeed, accelRate, decelRate, velocityPower, frictionAmm, jumpForce, jumpCut, fallMult, maxJumpSecs, jumpCoolMax;
+    private float movementSpeed, accelRate, decelRate, velocityPower, frictionAmm, jumpForce, jumpCut, fallMult, jumpCooldown, currentCooldown;
     private LayerMask groundLayer;
     private LayerMask plotLayer;
     private LayerMask beanStalkLayer;
     private BoxCollider2D boxCollider;
+    private bool canJump;
 
     private float pauseVineCollision;
 
@@ -72,6 +73,9 @@ public class Character : MonoBehaviour
         data.isGrounded = true;
         data.canClimb = false;
         data.isClimbing = false;
+        canJump = false;
+        jumpCooldown = data.jumpCooldown;
+        currentCooldown = 0;
     }
 
     // Update is called once per frame
@@ -114,12 +118,18 @@ public class Character : MonoBehaviour
 
     protected void VerticalMovement(bool onGround, bool onStalk)
     {
-        if ((jump.inProgress) && (onGround || onStalk) && active)
+
+        if (active && currentCooldown >= 0 && (onGround || onStalk)) { currentCooldown -= Time.deltaTime; }
+
+        if ((jump.inProgress) && (onGround || onStalk) && active && currentCooldown <= 0)
         {
+
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            
             data.isGrounded = false;
             anim.SetBool("Running", false);
             //lizardAnimator.SetBool("Jumping", true);
+            currentCooldown = jumpCooldown;
             if (onStalk)
             {
                 pauseVineCollision = 1f;
@@ -127,7 +137,7 @@ public class Character : MonoBehaviour
         }
 
         // Apply Jumpcut
-        if (rb.velocity.y > 0 && !onGround && !(jump.inProgress))
+        if (rb.velocity.y > 0 && !onGround && !(jump.inProgress) )
         {
             // jump cut should be 1-0
             rb.AddForce(Vector2.down * rb.velocity.y * (1 - jumpCut), ForceMode2D.Impulse);
@@ -213,6 +223,7 @@ public class Character : MonoBehaviour
         }
         else
         {
+            
             if (!jump.inProgress) rb.gravityScale = fallMult;
         }
     }
@@ -254,7 +265,16 @@ public class Character : MonoBehaviour
         {
             // Need to fix this 
             //data.isGrounded = true;
+            //currentCooldown = jumpCooldown;
+            //anim.SetBool("isJumping", false);
+            //anim.SetBool("isAscending", false);
 
+        }
+        if (collision.collider.tag == "BeanStalk")
+        {
+            // Need to fix this 
+            //data.isGrounded = true;
+            //currentCooldown = jumpCooldown;
             //anim.SetBool("isJumping", false);
             //anim.SetBool("isAscending", false);
 

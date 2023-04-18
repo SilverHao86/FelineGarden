@@ -14,6 +14,7 @@ public class CharacterData : ScriptableObject
     [field: SerializeField] public float jumpForce { get; private set; }
     [field: SerializeField] public float jumpCut { get; private set; }
     [field: SerializeField] public float fallMult { get; private set; }
+    [field: SerializeField] public float jumpCooldown { get; private set; }
 
     [field: SerializeField] public BoxCollider2D boxCollider { get; private set; }
     [field: SerializeField] public LayerMask groundLayer { get; private set; }

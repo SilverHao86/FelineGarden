@@ -16,10 +16,11 @@ public class Cat : Character
         base.FixedUpdate();
     }
 
-     void OnTriggerStay2D(UnityEngine.Collider2D collision)
+    // Make Sure the cant plant
+    protected override void OnTriggerStay2D(UnityEngine.Collider2D collision)
     {
         
-        base.OnTriggerStay2D (collision);
+        
 
     }
 }

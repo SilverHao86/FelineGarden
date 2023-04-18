@@ -23,9 +23,10 @@ public class UIController : MonoBehaviour
     [SerializeField] private Vector2 mousePos;
     [SerializeField] private int currentStep = 0;
 
-    // Swap between gardener and cat
-    
-    
+    [SerializeField] private KeyCode inventoryKey;
+    [SerializeField] private GameObject witchInventory;
+    [SerializeField] private GameObject catInventory;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +44,22 @@ public class UIController : MonoBehaviour
     public void Update()
     {
         
+        if (Input.GetKeyDown(pauseKey))
+        {
+            paused = !paused;
+            Time.timeScale = paused ? 0f : 1f; // If paused is true, stop time scale, if it is false, set the timescale to normal values
+            pauseMenu.SetActive(paused);
+        }
+
+        if(Input.GetKeyDown(inventoryKey))
+        {
+            witchInventory.SetActive(!witchInventory.activeSelf);
+            catInventory.SetActive(!catInventory.activeSelf);
+            if (witchInventory.activeSelf || catInventory.activeSelf)
+            {
+                InventoryController.instance.ListItems();
+            }
+        }
         
         //for (int i = 0; i < checklist.Count; i++)
         //{

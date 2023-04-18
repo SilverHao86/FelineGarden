@@ -19,6 +19,7 @@ public class ItemController : MonoBehaviour
 
     public void Equipped()
     {
+        // Change the equip item image rather than refreshing the entire list
         int index = transform.GetSiblingIndex();
         InventoryController.instance.EquipItem(item, index);
         InventoryController.instance.ListItems();

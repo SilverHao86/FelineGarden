@@ -43,14 +43,6 @@ public class UIController : MonoBehaviour
 
     public void Update()
     {
-        
-        if (Input.GetKeyDown(pauseKey))
-        {
-            paused = !paused;
-            Time.timeScale = paused ? 0f : 1f; // If paused is true, stop time scale, if it is false, set the timescale to normal values
-            pauseMenu.SetActive(paused);
-        }
-
         if(Input.GetKeyDown(inventoryKey))
         {
             witchInventory.SetActive(!witchInventory.activeSelf);

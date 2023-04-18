@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &255494059 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5745747542826713164, guid: d62349f440aa11a45beea7c159a3cea0, type: 3}
-  m_PrefabInstance: {fileID: 823156420}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &642087992 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3335947117510051545, guid: b5d59119f73831c41b2ed45832d52287, type: 3}
@@ -214,7 +209,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651656205}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -354,8 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a708b1e198a19cd4e981810bf52fac3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseKey: 27
-  pauseMenu: {fileID: 255494059}
+  <PauseKey>k__BackingField: 0
   canvasGroups: []
   fadeRate: 1
   checklist: []
@@ -363,10 +357,6 @@ MonoBehaviour:
   crossSprite: {fileID: 21300000, guid: 1c99e0e3426a2f24ba859ebb79bd595f, type: 3}
   mousePos: {x: 0, y: 0}
   currentStep: 0
-  swapCamKey: 99
-  gardenerCam: {fileID: 651656207}
-  catCam: {fileID: 1517619177}
-  activeCharIndex: 0
   inventoryKey: 101
   witchInventory: {fileID: 642087992}
   catInventory: {fileID: 1265270522}
@@ -397,9 +387,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ac8573d16420148a48b69120b13118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characters:
-  - {fileID: 9084862418211476360}
-  - {fileID: 4810259292905169869}
+  catCam: {fileID: 1517619177}
+  gardenCam: {fileID: 651656207}
+  catChar: {fileID: 4810259292905169869}
+  gardenerChar: {fileID: 9084862418211476360}
+  SwapCamKey: 102
 --- !u!114 &1031981794
 MonoBehaviour:
   m_ObjectHideFlags: 0

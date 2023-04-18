@@ -121,7 +121,7 @@ public class Character : MonoBehaviour
 
         if (active && currentCooldown >= 0 && (onGround || onStalk)) { currentCooldown -= Time.deltaTime; }
 
-        if ((jump.inProgress) && (onGround || onStalk) && active && currentCooldown <= 0)
+        if ((jump.inProgress) && (onGround || onStalk) && active && rb.velocity.y == 0 && currentCooldown <= 0)
         {
 
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -279,7 +279,24 @@ public class Character : MonoBehaviour
             //anim.SetBool("isAscending", false);
 
         }
+        
 
+    }
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "SeedBag")
+        {
+            // Get the seed type
+            collision.gameObject.GetComponent<SeedPickUp>();
+
+            // Need to add, add to inventory
+            Destroy(collision.gameObject);
+
+
+
+
+        }
     }
 
     protected virtual void OnTriggerStay2D(UnityEngine.Collider2D collision)

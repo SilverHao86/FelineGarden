@@ -20,7 +20,7 @@ MonoBehaviour:
   <jumpForce>k__BackingField: 7
   <jumpCut>k__BackingField: 0.1
   <fallMult>k__BackingField: 3
-  <jumpCooldown>k__BackingField: 0.7
+  <jumpCooldown>k__BackingField: 0.2
   <boxCollider>k__BackingField: {fileID: -4716959951092709616, guid: c12d5f8a692739c4d84b176f210e0a61, type: 3}
   <groundLayer>k__BackingField:
     serializedVersion: 2

@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Gardener gardenerChar;
     public KeyCode SwapCamKey;
     private UIController controller;
-    // Start is called before the first frame update
+    private DataManager dataManager;
+
     void Start()
     {
         catChar.Cam = catCam;
@@ -20,9 +21,10 @@ public class GameManager : MonoBehaviour
         Physics2D.IgnoreCollision(catChar.GetComponent<BoxCollider2D>(), gardenerChar.GetComponent<BoxCollider2D>());
         SetActiveGardner(true);
         SetActiveCat(false);
+        
+        InitData(); // only needs to be triggered when gameplay starts
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(controller.PauseKey))
@@ -64,5 +66,10 @@ public class GameManager : MonoBehaviour
         catChar.active = active;
         catChar.Cam.enabled = active;
         catChar.ToggleMovement();
+    }
+
+    private void InitData()
+    {
+        dataManager = new DataManager();
     }
 }

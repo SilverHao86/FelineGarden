@@ -82,8 +82,6 @@ public class InventoryController : MonoBehaviour
             // If the index is an equipped item, designate that it is equipped
             obj.transform.GetChild(3).GetComponent<Image>().color = new Color(1, 1, 1, equippedIndex[1] == i ? 0.05f : 0);
         }
-        Debug.Log(equippedIndex[0]);
-        Debug.Log(equippedIndex[1]);
     }
 
     public void FillInfo(GameObject itemObj, Item item)
@@ -91,8 +89,8 @@ public class InventoryController : MonoBehaviour
         itemObj.GetComponent<ItemController>().item = item;
         itemObj.transform.GetChild(0).GetComponent<TMP_Text>().text = item.name;
         itemObj.transform.GetChild(1).GetComponent<Image>().sprite = item.icon;
-        itemObj.transform.GetChild(2).GetComponent<TMP_Text>().text = "" + Random.Range(0, 12);
-        // itemObj.transform.GetChild(2).GetComponent<TMP_Text>().text = "" + item.amount;
+        itemObj.transform.GetChild(2).GetComponent<TMP_Text>().text = "" + Random.Range(1,10);
+        //itemObj.transform.GetChild(2).GetComponent<TMP_Text>().text = "" + item.amount;
     }
 
     public void EquipItem(Item item, int index = -1)

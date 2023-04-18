@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -51,6 +52,11 @@ public class UIController : MonoBehaviour
             {
                 InventoryController.instance.ListItems();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         
         //for (int i = 0; i < checklist.Count; i++)

@@ -19,9 +19,7 @@ public class ItemController : MonoBehaviour
 
     public void Equipped()
     {
-        Debug.Log("clicked");
         int index = transform.GetSiblingIndex();
-        Debug.Log(transform.parent.gameObject);
         InventoryController.instance.EquipItem(item, index);
         InventoryController.instance.ListItems();
     }

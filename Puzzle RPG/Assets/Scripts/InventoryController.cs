@@ -25,8 +25,8 @@ public class InventoryController : MonoBehaviour
     void Start()
     {
         equippedIndex = new int[2];
-        equippedIndex[0] = Random.Range(0, 10);
-        equippedIndex[1] = Random.Range(0, 10);
+        equippedIndex[0] = 0;
+        equippedIndex[1] = 0;
         equippedColor = new Color(1, 1, 1, 0.05f);
         emptyColor = new Color(1, 1, 1, 0);
     }

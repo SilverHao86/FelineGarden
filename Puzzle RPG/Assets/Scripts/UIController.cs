@@ -28,7 +28,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject witchInventory;
     [SerializeField] private GameObject catInventory;
 
-    public GameObject PauseMenu { get; private set; }
+    public GameObject PauseMenu { get { return pauseMenu; } }
 
     // Start is called before the first frame update
     void Start()

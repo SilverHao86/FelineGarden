@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+[System.Serializable]
 public class Character : MonoBehaviour
 {
     [HideInInspector] public Camera Cam;

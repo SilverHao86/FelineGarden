@@ -622,6 +622,18 @@ PrefabInstance:
       propertyPath: witchContent
       value: 
       objectReference: {fileID: 758430374}
+    - target: {fileID: 2390236459135877044, guid: a7a86745f42c7b24f9b509a49acc0116, type: 3}
+      propertyPath: catItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2390236459135877044, guid: a7a86745f42c7b24f9b509a49acc0116, type: 3}
+      propertyPath: witchItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2390236459135877044, guid: a7a86745f42c7b24f9b509a49acc0116, type: 3}
+      propertyPath: catItems.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 08b56bcf113fabf4d85f0c5236e909f8, type: 2}
     - target: {fileID: 4832161622075240900, guid: a7a86745f42c7b24f9b509a49acc0116, type: 3}
       propertyPath: m_RootOrder
       value: 15

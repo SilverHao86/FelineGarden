@@ -16,4 +16,5 @@ MonoBehaviour:
   itemName: Beanstalk
   amount: 1
   icon: {fileID: -123025055, guid: fe10748d7e67f3d4889862f429de084f, type: 3}
-  type: Gardener
+  type: Witch
+  isInventory: 0

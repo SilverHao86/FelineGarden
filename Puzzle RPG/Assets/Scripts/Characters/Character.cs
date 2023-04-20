@@ -288,7 +288,7 @@ public class Character : MonoBehaviour
         if (collision.gameObject.tag == "SeedBag")
         {
             // Get the seed type
-            collision.gameObject.GetComponent<SeedPickUp>();
+            InventoryController.instance.Add(collision.gameObject.GetComponent<ItemController>().item);
 
             // Need to add, add to inventory
             Destroy(collision.gameObject);
@@ -306,7 +306,7 @@ public class Character : MonoBehaviour
             //Debug.Log(plantPlant.inProgress);
             if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive)
             {
-                collision.gameObject.gameObject.GetComponent<PlantPlot>().PlantPlant();
+                collision.gameObject.GetComponent<PlantPlot>().PlantPlant();
             }
         }
 

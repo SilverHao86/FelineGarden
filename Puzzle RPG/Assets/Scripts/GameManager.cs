@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         {
             controller.Paused = !controller.Paused;
             Time.timeScale = controller.Paused ? 0f : 1f; // If paused is true, stop time scale, if it is false, set the timescale to normal values
-            controller.pauseMenu.SetActive(controller.Paused);
+            controller.PauseMenu.SetActive(controller.Paused);
         }
 
         if (!controller.Paused)

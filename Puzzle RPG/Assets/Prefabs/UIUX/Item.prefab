@@ -420,6 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f0646d6b635fc4984cfc16d483410b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <seedType>k__BackingField: 0
   item: {fileID: 0}
 --- !u!1 &8573078053184748482
 GameObject:
@@ -480,7 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.042530775, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

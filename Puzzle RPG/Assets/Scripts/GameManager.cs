@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
         catChar.Cam = catCam;
         gardenerChar.Cam = gardenCam;
         controller = GetComponent<UIController>();
-        Debug.Log(controller.PauseMenu);
         Physics2D.IgnoreCollision(catChar.GetComponent<BoxCollider2D>(), gardenerChar.GetComponent<BoxCollider2D>());
         SetActiveGardner(true);
         SetActiveCat(false);

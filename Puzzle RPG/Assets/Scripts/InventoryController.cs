@@ -42,6 +42,7 @@ public class InventoryController : MonoBehaviour
         // Add code for duplicate items
         // If they share id, add to amount rather than adding new item
         // Add override to use name and amount only rather than the item object
+        Debug.Log(item);
         int sharedIndex = -1;
         if (item.type == "Witch")
         {
@@ -52,7 +53,7 @@ public class InventoryController : MonoBehaviour
             }
             else
             {
-                witchItems.Add(item);
+                witchItems.Add(Object.Instantiate(item));
             }
             
         }
@@ -65,10 +66,11 @@ public class InventoryController : MonoBehaviour
             }
             else
             {
-                catItems.Add(item);
+                catItems.Add(Object.Instantiate(item));
             }
             
         }
+        ListItems();
     }
 
     public void Remove(Item item)
@@ -97,7 +99,7 @@ public class InventoryController : MonoBehaviour
             obj.transform.GetChild(3).GetComponent<Image>().color = (equippedIndex[1] == i ? equippedColor : emptyColor);
 
         }
-        for (int i = 0; i < witchItems.Count; i++)
+        for (int i = 0; i < catItems.Count; i++)
         {
             GameObject obj = Instantiate(itemPrefab, catContent);
             FillInfo(obj, catItems[i]);
@@ -119,25 +121,25 @@ public class InventoryController : MonoBehaviour
     { 
         if(index == -1)
         {
-            if (witchItems.Contains(item))
+            if (ListHasItem(witchItems, item) != -1)
             {
                 witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = emptyColor;
-                equippedIndex[0] = witchItems.IndexOf(item);
+                equippedIndex[0] = ListHasItem(witchItems, item);
                 witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = equippedColor;
             }
             else
             {
                 catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = emptyColor;
-                equippedIndex[1] = catItems.IndexOf(item);
+                equippedIndex[1] = ListHasItem(witchItems, item);
                 catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = equippedColor;
             }
         }
         else
         {
-            if(witchItems.Contains(item))
+            if(ListHasItem(witchItems, item) != -1)
             {
                 witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = emptyColor;
-                equippedIndex[0] = witchItems.IndexOf(item);
+                equippedIndex[0] = index;
                 witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = equippedColor;
             }
             else

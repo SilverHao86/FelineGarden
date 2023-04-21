@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime;
@@ -6,24 +5,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    enum GameState
-    {
-        Init,
-        Play,
-        Pause
-    };
     [SerializeField] private Camera catCam;
     [SerializeField] private Camera gardenCam;
     [SerializeField] private Cat catChar;
     [SerializeField] private Gardener gardenerChar;
     public KeyCode SwapCamKey;
     private UIController controller;
-
     private DataManager dataManager;
-    private Data playerData;
-    private float saveTimer = 0.0f;
-    private const int SAVE_INTERVAL = 2; // 1min
-    GameState state = GameState.Init;
 
     void Start()
     {
@@ -34,7 +22,6 @@ public class GameManager : MonoBehaviour
         SetActiveGardner(true);
         SetActiveCat(false);
         
-        state = GameState.Play;
         InitData(); // only needs to be triggered when gameplay starts
     }
 
@@ -44,11 +31,10 @@ public class GameManager : MonoBehaviour
         {
             controller.Paused = !controller.Paused;
             Time.timeScale = controller.Paused ? 0f : 1f; // If paused is true, stop time scale, if it is false, set the timescale to normal values
-            state = controller.Paused ? GameState.Pause : GameState.Play;
             controller.PauseMenu.SetActive(controller.Paused);
         }
 
-        if (state == GameState.Play)
+        if (!controller.Paused)
         {
             if (Input.GetKeyDown(SwapCamKey))
             {
@@ -65,12 +51,6 @@ public class GameManager : MonoBehaviour
                     gardenerChar.ToggleMovement();
                 }
                
-            }
-
-            saveTimer += Time.deltaTime;
-            if(saveTimer > SAVE_INTERVAL)
-            {
-                SaveGame();
             }
         }
 
@@ -90,16 +70,8 @@ public class GameManager : MonoBehaviour
         catChar.ToggleMovement();
     }
 
-    private void SaveGame()
-    {
-        saveTimer = 0.0f;
-        dataManager.Save(playerData, "Test");
-    }
     private void InitData()
     {
-        saveTimer = 0.0f;
         dataManager = new DataManager();
-        playerData = new Data(catChar, gardenerChar);
-        System.IO.File.WriteAllText(Application.dataPath + "/Saves/" + "Adam.txt", JsonUtility.ToJson(catChar));
     }
 }

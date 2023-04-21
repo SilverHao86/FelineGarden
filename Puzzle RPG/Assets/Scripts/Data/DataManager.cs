@@ -9,13 +9,16 @@
 
 class DataManager
 {
-    private Data currentData; // might not need
+    private Data currentData;
     private const int TIME_REQUIRED_TO_SAVE = 10;
     public DataManager()
     {
         SaveManager.Init();
     }
-
+    public void NewGame()
+    {
+        currentData = new Data();
+    }
     public void EndGame(float timer = 0.0f)
     {
         currentData.timePlayed = timer;
@@ -24,7 +27,7 @@ class DataManager
             Save(currentData, "fin");
         }
     }
-    public void Save(Data data, string fileName = "")
+    private void Save(Data data, string fileName = "")
     {
         SaveManager.NewSave(data, fileName);
     }

@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 1
   itemName: Test Seed
   amount: 1
-  icon: {fileID: 21300000, guid: 1bacaa9040344b0429aa0cb1a2515ccc, type: 3}
+  icon: {fileID: 21300000, guid: edf7f8de1e5391b4bb29570c9a1cccca, type: 3}
   type: Witch

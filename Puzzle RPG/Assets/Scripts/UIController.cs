@@ -8,7 +8,7 @@ public class UIController : MonoBehaviour
 {
     [field: SerializeField] public KeyCode PauseKey { get; private set; }
     public bool Paused { get; set; }
-    [SerializeField] public GameObject pauseMenu { get; private set; }
+    [SerializeField] private GameObject pauseMenu;
 
     [SerializeField] private List<CanvasGroup> canvasGroups;
     [SerializeField] private float fadeRate = 1.0f;
@@ -27,6 +27,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private KeyCode inventoryKey;
     [SerializeField] private GameObject witchInventory;
     [SerializeField] private GameObject catInventory;
+
+    public GameObject PauseMenu { get { return pauseMenu; } }
 
     // Start is called before the first frame update
     void Start()

@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "Character Type", menuName = "Character Data")]
 public class CharacterData : ScriptableObject
@@ -21,10 +25,15 @@ public class CharacterData : ScriptableObject
     [field: SerializeField] public LayerMask plotLayer { get; private set; }
     [field: SerializeField] public LayerMask beanstalkLayer { get; private set; }
 
+    [field: SerializeField] public LayerMask boxLayer { get; private set; }
+    [field: SerializeField] public bool canPushBox { get; set; }
+
     [field: SerializeField, HideInInspector] public PlayerInput playerControls { get; set; }
     [field: SerializeField, HideInInspector] public bool isGrounded { get; set; }
     [field: SerializeField, HideInInspector] public bool isClimbing { get; set; }
     [field: SerializeField, HideInInspector] public bool canClimb { get; set; }
+
+    
 
 
 }

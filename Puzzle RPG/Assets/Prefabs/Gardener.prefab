@@ -103,6 +103,8 @@ MonoBehaviour:
   Cam: {fileID: 0}
   active: 0
   paused: 0
+  pushMat: {fileID: 6200000, guid: aa7f204a214b8ad4fa59a58a1f1c5a63, type: 2}
+  cantPushMat: {fileID: 6200000, guid: 5e70c401f8d3d684aab67d2cbd021adc, type: 2}
   data: {fileID: 11400000, guid: 9f2ab107976962a4fb06d2130d102d1e, type: 2}
   anim: {fileID: 8671746039974083096}
 --- !u!61 &-4716959951092709616

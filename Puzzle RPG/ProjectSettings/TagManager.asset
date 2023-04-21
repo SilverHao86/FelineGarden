@@ -8,6 +8,7 @@ TagManager:
   - PlantBase
   - BeanStalk
   - SeedBag
+  - PushableBox
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - PlantBase
   - BeanStalk
   - SeedBag
-  - 
+  - PushableBox
   - 
   - 
   - 

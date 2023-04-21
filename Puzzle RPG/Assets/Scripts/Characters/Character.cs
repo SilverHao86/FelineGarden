@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Character : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Character : MonoBehaviour
     public bool active;
     public bool paused = false;
 
+    public PhysicsMaterial2D pushMat;
+    public PhysicsMaterial2D cantPushMat;
 
     public CharacterData data;
     public Animator anim;
@@ -31,8 +34,10 @@ public class Character : MonoBehaviour
     private LayerMask groundLayer;
     private LayerMask plotLayer;
     private LayerMask beanStalkLayer;
+    private LayerMask boxLayer;
     private BoxCollider2D boxCollider;
     private bool canJump;
+    private bool isOnTopOfStalk;
 
     private float pauseVineCollision;
 
@@ -69,6 +74,7 @@ public class Character : MonoBehaviour
         groundLayer = data.groundLayer;
         plotLayer = data.plotLayer;
         beanStalkLayer = data.beanstalkLayer;
+        boxLayer = data.boxLayer;
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
         data.isGrounded = true;
         data.canClimb = false;
@@ -83,15 +89,18 @@ public class Character : MonoBehaviour
     {
         CameraLogic();
         bool isOnGround = isOnLayerMask(groundLayer);
+        //bool tryingToPushBox = isPushingBox();
+        //Debug.Log(tryingToPushBox);
         bool isOnStalk = isOnLayerMask(beanStalkLayer);
+        isOnGround = (isOnGround || isOnLayerMask(boxLayer));
 
-        if (active && (0.0f <= pauseVineCollision))
-        {
-            pauseVineCollision -= Time.deltaTime;
-            isOnStalk = false;
-        }
+        //if (active && (0.0f <= pauseVineCollision))
+        //{
+        //    pauseVineCollision -= Time.deltaTime;
+        //    isOnStalk = false;
+        //}
 
-        HorizontileMovement(isOnGround);
+        HorizontileMovement(isOnGround /*, tryingToPushBox*/);
         VerticalMovement(isOnGround, isOnStalk);
         if (!jump.inProgress && active)
         {
@@ -108,20 +117,14 @@ public class Character : MonoBehaviour
     protected void CameraLogic()
     {
         Cam.transform.position = new Vector3(transform.position.x, transform.position.y, Cam.transform.position.z);
-        /*
-        if(swapCharacter.WasReleasedThisFrame())
-        {
-
-        }
-        */
     }
 
     protected void VerticalMovement(bool onGround, bool onStalk)
     {
 
-        if (active && currentCooldown >= 0 && (onGround || onStalk)) { currentCooldown -= Time.deltaTime; }
+        if (active && currentCooldown >= 0 && (onGround || onStalk || isOnTopOfStalk)) { currentCooldown -= Time.deltaTime; }
 
-        if ((jump.inProgress) && (onGround || onStalk) && active && rb.velocity.y == 0 && currentCooldown <= 0)
+        if ((jump.inProgress) && (onGround || onStalk || isOnTopOfStalk) && active && rb.velocity.y == 0 && currentCooldown <= 0)
         {
 
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -132,12 +135,12 @@ public class Character : MonoBehaviour
             currentCooldown = jumpCooldown;
             if (onStalk)
             {
-                pauseVineCollision = 1f;
+                //pauseVineCollision = 0.5f;
             }
         }
 
         // Apply Jumpcut
-        if (rb.velocity.y > 0 && !onGround && !(jump.inProgress) )
+        if (rb.velocity.y > 0 && (!onGround && !isOnTopOfStalk)  && !(jump.inProgress) )
         {
             // jump cut should be 1-0
             rb.AddForce(Vector2.down * rb.velocity.y * (1 - jumpCut), ForceMode2D.Impulse);
@@ -152,8 +155,15 @@ public class Character : MonoBehaviour
 
     protected void HorizontileMovement(bool onGround)
     {
+
         if (active)
         {
+            
+            if(isHittingSide() && !onGround) {
+                //Debug.Log("hitting side");
+                return; 
+            }
+
             float speed = move.ReadValue<Vector2>().x * movementSpeed;
             // Speed difference
             float speedDif = speed - rb.velocity.x;
@@ -186,8 +196,13 @@ public class Character : MonoBehaviour
 
             float horizontileMovement = Mathf.Pow(Mathf.Abs(speedDif) * acceration, velocityPower) * Mathf.Sign(speedDif);
 
+            
+
             rb.AddForce(horizontileMovement * Vector2.right);
+
+            
         }
+        
 
         // Still apply friction
         if (onGround && Mathf.Abs(move.ReadValue<Vector2>().x) < 0.0f)
@@ -196,6 +211,9 @@ public class Character : MonoBehaviour
 
             rb.AddForce(Vector2.right * -friction, ForceMode2D.Impulse);
         }
+        //Debug.Log(isPushingBox());
+
+        //if (isPushingBox() && !data.canPushBox) { Debug.Log("cant push box"); rb.velocity = new Vector2(0, rb.velocity.y); }
     }
 
     // https://www.youtube.com/watch?v=Ln7nv-Y2tf4
@@ -205,20 +223,34 @@ public class Character : MonoBehaviour
         {
             data.canClimb = true;
             // Hitting Up
-            if(move.ReadValue<Vector2>().y > 0) { data.isClimbing = true; }
+            if(move.ReadValue<Vector2>().y != 0 || isAboveLayerMask(beanStalkLayer)) { data.isClimbing = true; }
             else {
-                if(move.ReadValue<Vector2>().x != 0) { data.isClimbing = false; } 
+                if(move.ReadValue<Vector2>().x != 0 && !isOnTopOfStalk) { data.isClimbing = false; } 
             }
         }
         else
         {
             data.isClimbing = false;
             data.canClimb = false;
+            isOnTopOfStalk = false;
         }
 
         if(data.isClimbing)
         {
-            rb.velocity = new Vector2(rb.velocity.x, move.ReadValue<Vector2>().y * movementSpeed);
+            if(isAboveLayerMask(beanStalkLayer))
+            {
+ 
+                rb.velocity = new Vector2(rb.velocity.x, move.ReadValue<Vector2>().y * movementSpeed);
+            }
+            else
+            {
+                isOnTopOfStalk = true;
+                if(move.ReadValue<Vector2>().y < 0)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, move.ReadValue<Vector2>().y * movementSpeed);
+                }
+            }
+            
             if (!jump.inProgress) rb.gravityScale = 0;
         }
         else
@@ -232,24 +264,38 @@ public class Character : MonoBehaviour
     {
         if (!active)
         {
-            if (isOnLayerMask(groundLayer) || isOnLayerMask(beanStalkLayer))
-            {
-                rb.velocity = Vector2.zero;
-                rb.angularVelocity = 0f;
-                rb.bodyType = RigidbodyType2D.Kinematic;
-                rb.Sleep();
 
-            }
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            //rb.bodyType = RigidbodyType2D.Kinematic;
+            //rb.Sleep();
+            anim.SetBool("Running", false);
         }
         else
         {
-            rb.WakeUp();
-            rb.bodyType = RigidbodyType2D.Dynamic;
+            //rb.WakeUp();
+            //rb.bodyType = RigidbodyType2D.Dynamic;
         }
 
         
     }
 
+    public bool isHittingSide()
+    {
+        Vector2 direction =  (transform.eulerAngles.y == 180.0f) ? Vector2.left : Vector2.right;
+      
+        RaycastHit2D wallhit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, direction, 0.1f, boxLayer);
+        RaycastHit2D boxhit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, direction, 0.1f, groundLayer);
+        return wallhit.collider != null || boxhit.collider != null;
+
+    }
+
+    public bool isAboveLayerMask(LayerMask layer)
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.up, 0.1f, layer);
+        return hit.collider != null;
+
+    }
 
     public bool isOnLayerMask(LayerMask layer)
     {
@@ -257,6 +303,7 @@ public class Character : MonoBehaviour
         return hit.collider != null;
 
     }
+
 
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -279,13 +326,30 @@ public class Character : MonoBehaviour
             //anim.SetBool("isAscending", false);
 
         }
-        
 
+        if (collision.collider.tag == "PushableBox" && active)
+        {
+            Rigidbody2D boxRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (data.canPushBox)
+            {
+                boxRb.WakeUp();
+                boxRb.bodyType = RigidbodyType2D.Dynamic;
+                
+            }
+            else
+            {
+                boxRb.velocity = Vector2.zero;
+                boxRb.angularVelocity = 0f;
+                boxRb.bodyType = RigidbodyType2D.Kinematic;
+                boxRb.Sleep();
+            }
+
+        }
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "SeedBag")
+        if (collision.gameObject.tag == "SeedBag" && active)
         {
             // Get the seed type
             collision.gameObject.GetComponent<SeedPickUp>();
@@ -313,6 +377,29 @@ public class Character : MonoBehaviour
         
     }
 
+    protected virtual void OnCollisionStay2D(UnityEngine.Collision2D collision)
+    {
+        if (collision.collider.tag == "PushableBox" && active)
+        {
+            Rigidbody2D boxRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (data.canPushBox)
+            {
+                boxRb.WakeUp();
+                boxRb.bodyType = RigidbodyType2D.Dynamic;
+
+            }
+            else
+            {
+                boxRb.velocity = Vector2.zero;
+                boxRb.angularVelocity = 0f;
+                boxRb.bodyType = RigidbodyType2D.Kinematic;
+                boxRb.Sleep();
+            }
+        }
+
+
+    }
+
     protected virtual void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.tag == "Ground")
@@ -320,6 +407,23 @@ public class Character : MonoBehaviour
             data.isGrounded = false;
 
 
+        }
+        if (collision.collider.tag == "PushableBox" && active)
+        {
+            Rigidbody2D boxRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (data.canPushBox)
+            {
+                boxRb.WakeUp();
+                boxRb.bodyType = RigidbodyType2D.Dynamic;
+
+            }
+            else
+            {
+                boxRb.velocity = Vector2.zero;
+                boxRb.angularVelocity = 0f;
+                boxRb.bodyType = RigidbodyType2D.Kinematic;
+                boxRb.Sleep();
+            }
         }
     }
 

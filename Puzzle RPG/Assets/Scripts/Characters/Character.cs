@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
+[System.Serializable]
 public class Character : MonoBehaviour
 {
     [HideInInspector] public Camera Cam;

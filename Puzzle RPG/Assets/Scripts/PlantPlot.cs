@@ -49,6 +49,7 @@ public class PlantPlot : MonoBehaviour
             {
                 p.gameObject.SetActive(PlantActive);
             }
+            InventoryController.instance.witchItems[index].amount--;
         }
     }
 

@@ -379,7 +379,6 @@ public class Character : MonoBehaviour
             if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive)
             {
                 collision.gameObject.GetComponent<PlantPlot>().PlantPlant();
-                InventoryController.instance.witchItems[InventoryController.instance.equippedIndex[0]].amount--;
             }
 
             if (plantPlant.IsPressed() && collision.gameObject.GetComponent<PlantPlot>().PlantActive)

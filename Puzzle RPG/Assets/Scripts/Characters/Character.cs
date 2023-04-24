@@ -362,6 +362,12 @@ public class Character : MonoBehaviour
 
 
         }
+
+        if(collision.gameObject.tag == "WaterPool")
+        {
+            Vector2 respawnPoint = collision.gameObject.GetComponent<Water>().GetRespawn();
+            this.transform.position = new Vector3(respawnPoint.x,respawnPoint.y, transform.position.z);
+        }
     }
 
     protected virtual void OnTriggerStay2D(UnityEngine.Collider2D collision)

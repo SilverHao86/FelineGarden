@@ -376,12 +376,12 @@ public class Character : MonoBehaviour
         {
             //Debug.Log(plantPlant.inProgress);
 
-            if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive)
+            if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive && this is Gardener)
             {
                 collision.gameObject.GetComponent<PlantPlot>().PlantPlant();
             }
 
-            if (plantPlant.IsPressed() && collision.gameObject.GetComponent<PlantPlot>().PlantActive)
+            if (plantPlant.IsPressed() && collision.gameObject.GetComponent<PlantPlot>().PlantActive && this is Cat)
             {
                 collision.gameObject.GetComponent<PlantPlot>().CutPlant();
             }

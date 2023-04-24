@@ -111,9 +111,16 @@ public class InventoryController : MonoBehaviour
     public void FillInfo(GameObject itemObj, Item item)
     {
         itemObj.GetComponent<ItemController>().item = item;
-        itemObj.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
+        itemObj.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName; 
         itemObj.transform.GetChild(1).GetComponent<Image>().sprite = item.icon;
         itemObj.transform.GetChild(2).GetComponent<TMP_Text>().text = "" + item.amount;
+    }
+
+    public void FillInfo(Item item)
+    {
+        int witchIndex = ListHasItem(witchItems, item);
+        GameObject container = (witchIndex != -1 ? witchContent.GetChild(witchIndex).gameObject : catContent.GetChild(ListHasItem(catItems, item)).gameObject);
+        FillInfo(container, item);
     }
 
     public void EquipItem(Item item, int index = -1)

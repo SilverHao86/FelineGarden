@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,23 +42,43 @@ public class PlantPlot : MonoBehaviour
     public void PlantPlant()
     {
         int index = InventoryController.instance.equippedIndex[0];
-        Item tempItem = InventoryController.instance.witchItems[index];
-        if (tempItem.amount > 0 && (PlantType)tempItem.id == PlotType)
+        Item tempItem;
+        try
         {
-            PlantActive = true;
-            foreach (GameObject p in plantMakeUp)
+            tempItem = InventoryController.instance.witchItems[index];
+            if (tempItem.amount > 0 && (PlantType)tempItem.id == PlotType)
             {
-                p.gameObject.SetActive(PlantActive);
+                PlantActive = true;
+                foreach (GameObject p in plantMakeUp)
+                {
+                    p.gameObject.SetActive(PlantActive);
+                }
+                InventoryController.instance.witchItems[index].amount--;
+                InventoryController.instance.FillInfo(InventoryController.instance.witchItems[index]);
             }
-            InventoryController.instance.witchItems[index].amount--;
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e.Message);
         }
     }
 
     public void CutPlant()
     {
         int index = InventoryController.instance.equippedIndex[1];
-        Item tempItem = InventoryController.instance.catItems[index];
-        if (!tempItem.itemName.Equals("Plant Cutter")) return;
+        Item tempItem;
+        try
+        {
+            tempItem = InventoryController.instance.catItems[index];
+            if (!tempItem.itemName.Equals("Plant Cutter")) return;
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e.Message);
+            return;
+        }
+        
+        
         PlantActive = false;
         for (int i = 0; i < plantMakeUp.Count; i++)
         {
@@ -104,7 +125,7 @@ public class PlantPlot : MonoBehaviour
             }
             else
             {
-                addedPlant.GetComponent<SpriteRenderer>().sprite = beanStalkMiddle[Random.Range(0, (beanStalkMiddle.Count))];
+                addedPlant.GetComponent<SpriteRenderer>().sprite = beanStalkMiddle[UnityEngine.Random.Range(0, (beanStalkMiddle.Count))];
             }
             plantMakeUp.Add(addedPlant);
         }

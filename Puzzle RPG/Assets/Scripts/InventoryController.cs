@@ -95,7 +95,7 @@ public class InventoryController : MonoBehaviour
             FillInfo(obj, witchItems[i]);
 
             // If the index is an equipped item, designate that it is equipped
-            obj.transform.GetChild(3).GetComponent<Image>().color = (equippedIndex[1] == i ? equippedColor : emptyColor);
+            obj.transform.GetChild(3).GetComponent<Image>().color = (equippedIndex[0] == i ? equippedColor : emptyColor);
 
         }
         for (int i = 0; i < catItems.Count; i++)

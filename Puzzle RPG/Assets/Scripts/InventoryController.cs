@@ -42,7 +42,6 @@ public class InventoryController : MonoBehaviour
         // Add code for duplicate items
         // If they share id, add to amount rather than adding new item
         // Add override to use name and amount only rather than the item object
-        Debug.Log(item);
         int sharedIndex = -1;
         if (item.type == "Witch")
         {
@@ -112,43 +111,73 @@ public class InventoryController : MonoBehaviour
     public void FillInfo(GameObject itemObj, Item item)
     {
         itemObj.GetComponent<ItemController>().item = item;
-        itemObj.transform.GetChild(0).GetComponent<TMP_Text>().text = item.name;
+        itemObj.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
         itemObj.transform.GetChild(1).GetComponent<Image>().sprite = item.icon;
         itemObj.transform.GetChild(2).GetComponent<TMP_Text>().text = "" + item.amount;
     }
 
     public void EquipItem(Item item, int index = -1)
     { 
-        if(index == -1)
+        int witchIndex = ListHasItem(witchItems, item);
+
+        if (witchIndex != -1)
         {
-            if (ListHasItem(witchItems, item) != -1)
+            if (equippedIndex[0] != -1)
             {
                 witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = emptyColor;
-                equippedIndex[0] = ListHasItem(witchItems, item);
-                witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = equippedColor;
             }
-            else
-            {
-                catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = emptyColor;
-                equippedIndex[1] = ListHasItem(witchItems, item);
-                catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = equippedColor;
-            }
+            equippedIndex[0] = index != -1 && index < witchItems.Count ? index : witchIndex;
+            witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = equippedColor;
         }
         else
         {
-            if(ListHasItem(witchItems, item) != -1)
-            {
-                witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = emptyColor;
-                equippedIndex[0] = index;
-                witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = equippedColor;
-            }
-            else
+            if (equippedIndex[1] != -1)
             {
                 catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = emptyColor;
-                equippedIndex[1] = index;
-                catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = equippedColor;
             }
+            equippedIndex[1] = index != -1 && index < catItems.Count ? index : ListHasItem(catItems, item);
+            catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = equippedColor;
         }
+
+
+
+        //if (index == -1)
+        //{
+        //    int witchIndex = ListHasItem(witchItems, item);
+        //    if (witchIndex != -1)
+        //    {
+        //        if(equippedIndex[0] != -1)
+        //        {
+        //            witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = emptyColor;
+        //        }
+        //        equippedIndex[0] = witchIndex;
+        //        witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = equippedColor;
+        //    }
+        //    else
+        //    {
+        //        catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = emptyColor;
+        //        equippedIndex[1] = ListHasItem(witchItems, item);
+        //        catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = equippedColor;
+        //    }
+        //}
+        //else
+        //{
+        //    if(ListHasItem(witchItems, item) != -1)
+        //    {
+        //        if (equippedIndex[0] != -1)
+        //        {
+        //            witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = emptyColor;
+        //        }
+        //        equippedIndex[0] = index;
+        //        witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = equippedColor;
+        //    }
+        //    else
+        //    {
+        //        catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = emptyColor;
+        //        equippedIndex[1] = index;
+        //        catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = equippedColor;
+        //    }
+        //}
     }
 
     private int ListHasItem(List<Item> list, Item item)
@@ -156,7 +185,7 @@ public class InventoryController : MonoBehaviour
         int index = -1;
         for(int i = 0; i < list.Count; i++)
         {
-            if (list[i].name == item.name)
+            if (list[i].itemName == item.itemName)
             {
                 index = i;
             }

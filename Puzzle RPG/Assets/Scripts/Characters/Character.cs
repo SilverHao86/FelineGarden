@@ -369,9 +369,21 @@ public class Character : MonoBehaviour
         if (collision.gameObject.tag == "PlantBase" && active)
         {
             //Debug.Log(plantPlant.inProgress);
-            if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive)
+            if (data.canPlant)
             {
-                collision.gameObject.GetComponent<PlantPlot>().PlantPlant();
+
+                if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive)
+                {
+                    collision.gameObject.GetComponent<PlantPlot>().PlantPlant();
+                }
+            }
+
+            if(data.canCutPlant)
+            {
+                if (plantPlant.IsPressed() && collision.gameObject.GetComponent<PlantPlot>().PlantActive)
+                {
+                    collision.gameObject.GetComponent<PlantPlot>().CutPlant();
+                }
             }
         }
 
@@ -407,8 +419,8 @@ public class Character : MonoBehaviour
         {
             data.isGrounded = false;
 
-
         }
+
         if (collision.collider.tag == "PushableBox" && active)
         {
             Rigidbody2D boxRb = collision.gameObject.GetComponent<Rigidbody2D>();

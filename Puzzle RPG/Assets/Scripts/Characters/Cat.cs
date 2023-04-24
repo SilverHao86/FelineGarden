@@ -18,15 +18,24 @@ public class Cat : Character
     }
 
     // Make Sure the cant plant
-    protected override void OnTriggerStay2D(UnityEngine.Collider2D collision)
+    void OnTriggerStay2D(UnityEngine.Collider2D collision)
     {
-        
-        
+
+        base.OnTriggerStay2D(collision);
+
 
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
+
+        // Pick up items excusive to cat
+        if (collision.gameObject.tag == "CatPickup" && active)
+        {
+            InventoryController.instance.Add(collision.gameObject.GetComponent<ItemController>().item);
+            collision.gameObject.GetComponent<ItemController>().Equipped();
+            Destroy(collision.gameObject);
+        }
     }
 }

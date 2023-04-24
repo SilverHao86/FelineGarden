@@ -52,8 +52,8 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(SwapCamKey))
             {
-                Debug.Log("Collision Check Gardener: " + gardenerChar.isOnLayerMask(gardenerChar.data.groundLayer) + " "  + gardenerChar.isOnLayerMask(gardenerChar.data.beanstalkLayer) + " " + gardenerChar.isOnLayerMask(gardenerChar.data.boxLayer));
-                Debug.Log("Collision Check Cat: " + catChar.isOnLayerMask(catChar.data.groundLayer) + " " + catChar.isOnLayerMask(catChar.data.beanstalkLayer) + " " + catChar.isOnLayerMask(catChar.data.boxLayer));
+                //Debug.Log("Collision Check Gardener: " + gardenerChar.isOnLayerMask(gardenerChar.data.groundLayer) + " "  + gardenerChar.isOnLayerMask(gardenerChar.data.beanstalkLayer) + " " + gardenerChar.isOnLayerMask(gardenerChar.data.boxLayer));
+                //Debug.Log("Collision Check Cat: " + catChar.isOnLayerMask(catChar.data.groundLayer) + " " + catChar.isOnLayerMask(catChar.data.beanstalkLayer) + " " + catChar.isOnLayerMask(catChar.data.boxLayer));
                 if ((gardenerChar.isOnLayerMask(gardenerChar.data.groundLayer) || gardenerChar.isOnLayerMask(gardenerChar.data.beanstalkLayer) || gardenerChar.isOnLayerMask(gardenerChar.data.boxLayer))
                     && (catChar.isOnLayerMask(catChar.data.groundLayer) || catChar.isOnLayerMask(catChar.data.beanstalkLayer) || catChar.isOnLayerMask(catChar.data.boxLayer)))
                 {

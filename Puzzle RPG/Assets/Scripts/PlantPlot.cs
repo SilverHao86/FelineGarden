@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlantPlot : MonoBehaviour
 {
-    public enum PlantType { beanStalk, lily, pollenPuff };
+    public enum PlantType { beanStalk, lily, pollenPuff, notAPlant };
     [field: SerializeField] public PlantType PlotType { get; private set; }
     [SerializeField] private GameObject plant;
     [SerializeField]
@@ -33,7 +33,7 @@ public class PlantPlot : MonoBehaviour
                 break;
             case PlantType.pollenPuff:
                 break;
-            default:
+            case PlantType.notAPlant:
                 break;
         }
     }
@@ -44,6 +44,37 @@ public class PlantPlot : MonoBehaviour
         foreach (GameObject p in plantMakeUp)
         {
             p.gameObject.SetActive(PlantActive);
+        }
+    }
+
+    public void CutPlant()
+    {
+        PlantActive = false;
+        for (int i = 0; i < plantMakeUp.Count; i++)
+        {
+            if (i == 0)
+            {
+                plantMakeUp[i].SetActive(PlantActive);
+            }
+            else
+            {
+                Destroy(plantMakeUp[i]);
+            }
+        }
+
+        plantMakeUp.Clear();
+
+        switch (PlotType)
+        {
+            case PlantType.beanStalk:
+                PopulateBeanStalk();
+                break;
+            case PlantType.lily:
+                break;
+            case PlantType.pollenPuff:
+                break;
+            default:
+                break;
         }
     }
 

@@ -1,1 +1,0 @@
-{"Cam":{"instanceID":41680},"active":false,"paused":false,"pushMat":{"instanceID":10498},"cantPushMat":{"instanceID":10502},"data":{"instanceID":10514},"anim":{"instanceID":41724}}

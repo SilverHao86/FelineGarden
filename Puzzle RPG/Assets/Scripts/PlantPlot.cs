@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlantPlot : MonoBehaviour
 {
-    public enum PlantType { beanStalk, lily, pollenPuff };
+    public enum PlantType { beanStalk, lily, pollenPuff, notAPlant };
     [field: SerializeField] public PlantType PlotType { get; private set; }
     [SerializeField] private GameObject plant;
     [SerializeField]
@@ -33,17 +33,57 @@ public class PlantPlot : MonoBehaviour
                 break;
             case PlantType.pollenPuff:
                 break;
-            default:
+            case PlantType.notAPlant:
                 break;
         }
     }
 
     public void PlantPlant()
     {
-        PlantActive = true;
-        foreach (GameObject p in plantMakeUp)
+        int index = InventoryController.instance.equippedIndex[0];
+        Item tempItem = InventoryController.instance.witchItems[index];
+        if (tempItem.amount > 0 && (PlantType)tempItem.id == PlotType)
         {
-            p.gameObject.SetActive(PlantActive);
+            PlantActive = true;
+            foreach (GameObject p in plantMakeUp)
+            {
+                p.gameObject.SetActive(PlantActive);
+            }
+            InventoryController.instance.witchItems[index].amount--;
+        }
+    }
+
+    public void CutPlant()
+    {
+        int index = InventoryController.instance.equippedIndex[1];
+        Item tempItem = InventoryController.instance.catItems[index];
+        if (!tempItem.itemName.Equals("Plant Cutter")) return;
+        PlantActive = false;
+        for (int i = 0; i < plantMakeUp.Count; i++)
+        {
+            if (i == 0)
+            {
+                plantMakeUp[i].SetActive(PlantActive);
+            }
+            else
+            {
+                Destroy(plantMakeUp[i]);
+            }
+        }
+
+        plantMakeUp.Clear();
+
+        switch (PlotType)
+        {
+            case PlantType.beanStalk:
+                PopulateBeanStalk();
+                break;
+            case PlantType.lily:
+                break;
+            case PlantType.pollenPuff:
+                break;
+            default:
+                break;
         }
     }
 

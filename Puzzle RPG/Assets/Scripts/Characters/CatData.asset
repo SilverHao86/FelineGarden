@@ -21,7 +21,6 @@ MonoBehaviour:
   <jumpCut>k__BackingField: 0.1
   <fallMult>k__BackingField: 1.9
   <jumpCooldown>k__BackingField: 0.2
-  <boxCollider>k__BackingField: {fileID: 1059920337125815295, guid: 362020e0387c03a439f23cb8b9fdb5a1, type: 3}
   <groundLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
@@ -35,6 +34,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   <canPushBox>k__BackingField: 0
-  <isGrounded>k__BackingField: 0
+  <canPlant>k__BackingField: 0
+  <canCutPlant>k__BackingField: 1
+  <isGrounded>k__BackingField: 1
   <isClimbing>k__BackingField: 0
   <canClimb>k__BackingField: 0

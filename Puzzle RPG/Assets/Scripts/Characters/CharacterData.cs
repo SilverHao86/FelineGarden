@@ -20,13 +20,14 @@ public class CharacterData : ScriptableObject
     [field: SerializeField] public float fallMult { get; private set; }
     [field: SerializeField] public float jumpCooldown { get; private set; }
 
-    [field: SerializeField] public BoxCollider2D boxCollider { get; private set; }
-    [field: SerializeField] public LayerMask groundLayer { get; private set; }
+    [field: SerializeField, Header("Layer Fields"), Space(5)] public LayerMask groundLayer { get; private set; }
     [field: SerializeField] public LayerMask plotLayer { get; private set; }
     [field: SerializeField] public LayerMask beanstalkLayer { get; private set; }
 
     [field: SerializeField] public LayerMask boxLayer { get; private set; }
-    [field: SerializeField] public bool canPushBox { get; set; }
+    [field: SerializeField, Header("Gameplay Fields"), Space(5)] public bool canPushBox { get; set; }
+    [field: SerializeField] public bool canPlant { get; set; }
+    [field: SerializeField] public bool canCutPlant { get; set; }
 
     [field: SerializeField, HideInInspector] public PlayerInput playerControls { get; set; }
     [field: SerializeField, HideInInspector] public bool isGrounded { get; set; }

@@ -362,6 +362,12 @@ public class Character : MonoBehaviour
 
 
         }
+
+        if(collision.gameObject.tag == "WaterPool")
+        {
+            Vector2 respawnPoint = collision.gameObject.GetComponent<Water>().GetRespawn();
+            this.transform.position = new Vector3(respawnPoint.x,respawnPoint.y, transform.position.z);
+        }
     }
 
     protected virtual void OnTriggerStay2D(UnityEngine.Collider2D collision)
@@ -369,9 +375,15 @@ public class Character : MonoBehaviour
         if (collision.gameObject.tag == "PlantBase" && active)
         {
             //Debug.Log(plantPlant.inProgress);
+
             if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive)
             {
                 collision.gameObject.GetComponent<PlantPlot>().PlantPlant();
+            }
+
+            if (plantPlant.IsPressed() && collision.gameObject.GetComponent<PlantPlot>().PlantActive)
+            {
+                collision.gameObject.GetComponent<PlantPlot>().CutPlant();
             }
         }
 
@@ -407,8 +419,8 @@ public class Character : MonoBehaviour
         {
             data.isGrounded = false;
 
-
         }
+
         if (collision.collider.tag == "PushableBox" && active)
         {
             Rigidbody2D boxRb = collision.gameObject.GetComponent<Rigidbody2D>();

@@ -375,21 +375,16 @@ public class Character : MonoBehaviour
         if (collision.gameObject.tag == "PlantBase" && active)
         {
             //Debug.Log(plantPlant.inProgress);
-            if (data.canPlant)
-            {
 
-                if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive)
-                {
-                    collision.gameObject.GetComponent<PlantPlot>().PlantPlant();
-                }
+            if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive)
+            {
+                collision.gameObject.GetComponent<PlantPlot>().PlantPlant();
+                InventoryController.instance.witchItems[InventoryController.instance.equippedIndex[0]].amount--;
             }
 
-            if(data.canCutPlant)
+            if (plantPlant.IsPressed() && collision.gameObject.GetComponent<PlantPlot>().PlantActive)
             {
-                if (plantPlant.IsPressed() && collision.gameObject.GetComponent<PlantPlot>().PlantActive)
-                {
-                    collision.gameObject.GetComponent<PlantPlot>().CutPlant();
-                }
+                collision.gameObject.GetComponent<PlantPlot>().CutPlant();
             }
         }
 

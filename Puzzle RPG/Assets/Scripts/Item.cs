@@ -10,7 +10,6 @@ public class Item : ScriptableObject
     public int amount;
     public Sprite icon;
     public string type;
-    public bool isInventory;
     
     public void ResetData()
     {

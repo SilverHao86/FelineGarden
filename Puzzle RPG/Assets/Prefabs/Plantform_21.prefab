@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 428439454565723298}
   - component: {fileID: 202867232371405207}
   - component: {fileID: 6848891926524039764}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plantform_21
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

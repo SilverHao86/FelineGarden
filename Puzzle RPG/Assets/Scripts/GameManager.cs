@@ -18,12 +18,51 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Gardener gardenerChar;
     public KeyCode SwapCamKey;
     private UIController controller;
+    private static GameManager instance;
+    public GameObject checkpointContainer;
+    //private Checkpoint[] checkpoints;
+    private List<Checkpoint> checkpoints;
 
     private DataManager dataManager;
     private Data playerData;
     private float saveTimer = 0.0f;
     private const int SAVE_INTERVAL = 2; // 1min
     GameState state = GameState.Init;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>(); // Looks for existing
+                if (instance == null)
+                {
+                    GameObject obj = new GameObject();
+                    obj.name = typeof(GameManager).Name;
+                    instance = obj.AddComponent<GameManager>();
+                }
+            }
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        if(checkpointContainer != null)
+        {
+            //checkpoints = new Checkpoint[checkpointContainer.transform.childCount];
+            checkpoints = new List<Checkpoint>(checkpointContainer.transform.childCount);
+            foreach (Checkpoint cpScript in checkpointContainer.transform.GetComponentsInChildren<Checkpoint>())
+            {
+                checkpoints.Add(cpScript);
+            }
+        }
+    }
 
     void Start()
     {
@@ -70,7 +109,7 @@ public class GameManager : MonoBehaviour
             saveTimer += Time.deltaTime;
             if(saveTimer > SAVE_INTERVAL)
             {
-                SaveGame();
+                //SaveGame();
             }
         }
 
@@ -90,16 +129,22 @@ public class GameManager : MonoBehaviour
         catChar.ToggleMovement();
     }
 
-    private void SaveGame()
+    public void Save(Checkpoint cp)
+    {
+        int cpIndex = checkpoints.IndexOf(cp);
+        playerData.ExtractAndSave(cpIndex);
+    }
+    public void Save()
     {
         saveTimer = 0.0f;
-        dataManager.Save(playerData, "Test");
+        playerData.ExtractAndSave();
+        //dataManager.Save(playerData, "Test");
     }
     private void InitData()
     {
         saveTimer = 0.0f;
         dataManager = new DataManager();
         playerData = new Data(catChar, gardenerChar);
-        System.IO.File.WriteAllText(Application.dataPath + "/Saves/" + "Adam.txt", JsonUtility.ToJson(catChar));
+        //playerData.Test();
     }
 }

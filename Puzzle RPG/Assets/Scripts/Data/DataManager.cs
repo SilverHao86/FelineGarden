@@ -16,16 +16,9 @@ class DataManager
         SaveManager.Init();
     }
 
-    public void EndGame(float timer = 0.0f)
-    {
-        currentData.timePlayed = timer;
-        if (currentData.timePlayed > TIME_REQUIRED_TO_SAVE)
-        {
-            Save(currentData, "fin");
-        }
-    }
     public void Save(Data data, string fileName = "")
     {
+        //data.ExtractInventory();
         SaveManager.NewSave(data, fileName);
     }
     private Data Load(string fileName = "")

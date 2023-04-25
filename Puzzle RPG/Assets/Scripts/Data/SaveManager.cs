@@ -26,7 +26,6 @@ public static class SaveManager
 
     public static void Save(Data data, string fileName)
     {
-        
         string filePath = SAVE_FILEPATH + fileName + FILE_FORMAT;
         File.WriteAllText(filePath, Convert(data));
     }
@@ -81,7 +80,7 @@ public static class SaveManager
     // Helpers - could probably be moved to DataManager
     private static string Convert(Data dataObject)
     {
-        return JsonUtility.ToJson(dataObject);
+        return JsonUtility.ToJson(dataObject, true);
     }
     private static Data Convert(string dataObject)
     {

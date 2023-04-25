@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <PauseKey>k__BackingField: 27
+  pauseMenu: {fileID: 0}
   canvasGroups: []
   fadeRate: 1
   checklist: []
@@ -54,7 +55,7 @@ MonoBehaviour:
   crossSprite: {fileID: 21300000, guid: 1c99e0e3426a2f24ba859ebb79bd595f, type: 3}
   mousePos: {x: 0, y: 0}
   currentStep: 0
-  inventoryKey: 101
+  inventoryKey: 9
   witchInventory: {fileID: 0}
   catInventory: {fileID: 0}
 --- !u!114 &4832161622075240901

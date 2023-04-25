@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -5,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static PlantPlot;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 [System.Serializable]
@@ -331,19 +333,7 @@ public class Character : MonoBehaviour
         if (collision.collider.tag == "PushableBox" && active)
         {
             Rigidbody2D boxRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (data.canPushBox)
-            {
-                boxRb.WakeUp();
-                boxRb.bodyType = RigidbodyType2D.Dynamic;
-                
-            }
-            else
-            {
-                boxRb.velocity = Vector2.zero;
-                boxRb.angularVelocity = 0f;
-                boxRb.bodyType = RigidbodyType2D.Kinematic;
-                boxRb.Sleep();
-            }
+            TryPushBoxHelper(boxRb);
 
         }
     }
@@ -395,19 +385,7 @@ public class Character : MonoBehaviour
         if (collision.collider.tag == "PushableBox" && active)
         {
             Rigidbody2D boxRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (data.canPushBox)
-            {
-                boxRb.WakeUp();
-                boxRb.bodyType = RigidbodyType2D.Dynamic;
-
-            }
-            else
-            {
-                boxRb.velocity = Vector2.zero;
-                boxRb.angularVelocity = 0f;
-                boxRb.bodyType = RigidbodyType2D.Kinematic;
-                boxRb.Sleep();
-            }
+            TryPushBoxHelper(boxRb);
         }
 
 
@@ -424,20 +402,42 @@ public class Character : MonoBehaviour
         if (collision.collider.tag == "PushableBox" && active)
         {
             Rigidbody2D boxRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (data.canPushBox)
-            {
-                boxRb.WakeUp();
-                boxRb.bodyType = RigidbodyType2D.Dynamic;
-
-            }
-            else
-            {
-                boxRb.velocity = Vector2.zero;
-                boxRb.angularVelocity = 0f;
-                boxRb.bodyType = RigidbodyType2D.Kinematic;
-                boxRb.Sleep();
-            }
+            TryPushBoxHelper(boxRb);
+            
         }
     }
 
+
+    private void TryPushBoxHelper(Rigidbody2D boxRb)
+    {
+        bool canPush = false;
+        if (this is Gardener)
+        {
+            // Dont Cut the Plant if the knife isn't equiped
+            int index = InventoryController.instance.equippedIndex[0];
+            Item tempItem;
+            try
+            {
+                tempItem = InventoryController.instance.witchItems[index];
+                if (tempItem.itemName.Equals("Ring of Strength"))
+                {
+                    canPush = true;
+                    boxRb.WakeUp();
+                    boxRb.bodyType = RigidbodyType2D.Dynamic;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message);
+                return;
+            }
+        }
+        if (!canPush)
+        {
+            boxRb.velocity = Vector2.zero;
+            boxRb.angularVelocity = 0f;
+            boxRb.bodyType = RigidbodyType2D.Kinematic;
+            boxRb.Sleep();
+        }
+    }
 }

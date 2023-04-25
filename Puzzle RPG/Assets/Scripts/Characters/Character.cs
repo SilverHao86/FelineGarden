@@ -428,8 +428,11 @@ public class Character : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.Log(e.Message);
-                return;
+                boxRb.velocity = Vector2.zero;
+                boxRb.angularVelocity = 0f;
+                boxRb.bodyType = RigidbodyType2D.Kinematic;
+                boxRb.Sleep();
+                //return;
             }
         }
         if (!canPush)

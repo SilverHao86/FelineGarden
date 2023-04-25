@@ -34,7 +34,7 @@ public class Cat : Character
         if (collision.gameObject.tag == "CatPickup" && active)
         {
             InventoryController.instance.Add(collision.gameObject.GetComponent<ItemController>().item);
-            //collision.gameObject.GetComponent<ItemController>().Equipped();
+            collision.gameObject.GetComponent<ItemController>().Equipped();
             Destroy(collision.gameObject);
         }
     }

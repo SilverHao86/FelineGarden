@@ -10,6 +10,8 @@ TagManager:
   - SeedBag
   - PushableBox
   - CatPickup
+  - WaterPool
+  - GardenerPickup
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,7 @@ TagManager:
   - SeedBag
   - PushableBox
   - CatPickup
-  - 
+  - GardenerPickup
   - 
   - 
   - 

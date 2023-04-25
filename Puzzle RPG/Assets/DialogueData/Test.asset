@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a128d3cbcb326ed4f8082f4e20df07aa, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  dialogue:
+  - "Hello, welcome to Botany Magic 101!\nUse WASD to move around the greenhouse.\n                               
+    (Click to continue)"
+  - 'To switch characters, press F.
+
+    Your feline familiar can jump higher and
+    traverse smaller paths.'
+  - "You may find seed bags throughout the greenhouse. \nPlant them by pressing G.\nNote:
+    Your familiar may NOT plant seeds!"
+  - "Press TAB to view your inventory. \nHappy Gardening!"

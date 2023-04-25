@@ -32,5 +32,12 @@ public class Gardener : Character
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
+
+        if (collision.gameObject.tag == "GardenerPickup" && active)
+        {
+            InventoryController.instance.Add(collision.gameObject.GetComponent<ItemController>().item);
+            //collision.gameObject.GetComponent<ItemController>().Equipped();
+            Destroy(collision.gameObject);
+        }
     }
 }

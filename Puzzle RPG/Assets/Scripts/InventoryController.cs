@@ -95,7 +95,7 @@ public class InventoryController : MonoBehaviour
             FillInfo(obj, witchItems[i]);
 
             // If the index is an equipped item, designate that it is equipped
-            obj.transform.GetChild(3).GetComponent<Image>().color = (equippedIndex[1] == i ? equippedColor : emptyColor);
+            if (obj != null) obj.transform.GetChild(3).GetComponent<Image>().color = (equippedIndex[0] == i ? equippedColor : emptyColor);
 
         }
         for (int i = 0; i < catItems.Count; i++)
@@ -104,16 +104,29 @@ public class InventoryController : MonoBehaviour
             FillInfo(obj, catItems[i]);
 
             // If the index is an equipped item, designate that it is equipped
-            obj.transform.GetChild(3).GetComponent<Image>().color = (equippedIndex[1] == i ? equippedColor : emptyColor);
+            if(obj != null) obj.transform.GetChild(3).GetComponent<Image>().color = (equippedIndex[1] == i ? equippedColor : emptyColor);
         }
     }
 
     public void FillInfo(GameObject itemObj, Item item)
     {
+        if(item.amount <= 0)
+        {
+            Remove(item);
+            ListItems(); 
+            return;
+        }
         itemObj.GetComponent<ItemController>().item = item;
-        itemObj.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
+        itemObj.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName; 
         itemObj.transform.GetChild(1).GetComponent<Image>().sprite = item.icon;
         itemObj.transform.GetChild(2).GetComponent<TMP_Text>().text = "" + item.amount;
+    }
+
+    public void FillInfo(Item item)
+    {
+        int witchIndex = ListHasItem(witchItems, item);
+        GameObject container = (witchIndex != -1 ? witchContent.GetChild(witchIndex).gameObject : catContent.GetChild(ListHasItem(catItems, item)).gameObject);
+        FillInfo(container, item);
     }
 
     public void EquipItem(Item item, int index = -1)

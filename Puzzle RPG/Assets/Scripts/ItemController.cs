@@ -7,10 +7,10 @@ public class ItemController : MonoBehaviour
 {
     [field: SerializeField] public PlantType seedType { get; private set; }
     public Item item;
+    private int index;
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -22,7 +22,13 @@ public class ItemController : MonoBehaviour
     public void Equipped()
     {
         // Change the equip item image rather than refreshing the entire list
-        int index = transform.GetSiblingIndex();
+        index = transform.GetSiblingIndex();
         InventoryController.instance.EquipItem(item, index);
+    }
+
+    public void UpdateValues()
+    {
+        index = transform.GetSiblingIndex();
+        InventoryController.instance.FillInfo(item);
     }
 }

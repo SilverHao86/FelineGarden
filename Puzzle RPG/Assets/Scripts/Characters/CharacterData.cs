@@ -25,9 +25,7 @@ public class CharacterData : ScriptableObject
     [field: SerializeField] public LayerMask beanstalkLayer { get; private set; }
 
     [field: SerializeField] public LayerMask boxLayer { get; private set; }
-    [field: SerializeField, Header("Gameplay Fields"), Space(5)] public bool canPushBox { get; set; }
-    [field: SerializeField] public bool canPlant { get; set; }
-    [field: SerializeField] public bool canCutPlant { get; set; }
+
 
     [field: SerializeField, HideInInspector] public PlayerInput playerControls { get; set; }
     [field: SerializeField, HideInInspector] public bool isGrounded { get; set; }

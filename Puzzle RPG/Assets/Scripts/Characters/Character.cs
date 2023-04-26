@@ -6,8 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static PlantPlot;
-using static UnityEditor.Experimental.GraphView.GraphView;
+//using static UnityEditor.Experimental.GraphView.GraphView;
 
 [System.Serializable]
 public class Character : MonoBehaviour
@@ -366,8 +367,25 @@ public class Character : MonoBehaviour
         {
             //Debug.Log(plantPlant.inProgress);
 
-            if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive && this is Gardener)
+            if (plantPlant.WasPerformedThisFrame() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive && this is Gardener)
             {
+                // Dont Cut the Plant if the knife isn't equiped
+                int index = InventoryController.instance.equippedIndex[0];
+                Item tempItem;
+                try
+                {
+                    tempItem = InventoryController.instance.witchItems[index];
+                    if (tempItem.itemName.Equals("Ring of Strength"))
+                    {
+                        Debug.Log(index);
+                        return;
+                    }
+                }
+                catch (Exception e)
+                {
+                    return;
+                }
+
                 collision.gameObject.GetComponent<PlantPlot>().PlantPlant();
             }
 

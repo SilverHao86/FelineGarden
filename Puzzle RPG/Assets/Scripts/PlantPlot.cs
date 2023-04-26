@@ -54,7 +54,7 @@ public class PlantPlot : MonoBehaviour
         {
             tempItem = InventoryController.instance.witchItems[index];
             Debug.Log(index);
-            if (!(tempItem.amount > 0) || tempItem.id > 1) return; // Greater than 1 index == not a plant
+            if (!(tempItem.amount > 0) || tempItem.id > 1 || tempItem.itemName.Equals("Ring of Strength")) return; // Greater than 1 id == not a plant
             PlotType = (PlantType)tempItem.id;
         }
         catch(Exception e)

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static PlantPlot;
-using static UnityEditor.Experimental.GraphView.GraphView;
+//using static UnityEditor.Experimental.GraphView.GraphView;
 
 [System.Serializable]
 public class Character : MonoBehaviour
@@ -103,7 +103,7 @@ public class Character : MonoBehaviour
         //    isOnStalk = false;
         //}
 
-        HorizontileMovement(isOnGround /*, tryingToPushBox*/);
+        HorizontalMovement(isOnGround /*, tryingToPushBox*/);
         VerticalMovement(isOnGround, isOnStalk);
         if (!jump.inProgress && active)
         {
@@ -156,7 +156,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    protected void HorizontileMovement(bool onGround)
+    protected void HorizontalMovement(bool onGround)
     {
 
         if (active)
@@ -197,11 +197,11 @@ public class Character : MonoBehaviour
             // Swtich acceleration based on direction
             acceration = (acceration > 0) ? accelRate : decelRate;
 
-            float horizontileMovement = Mathf.Pow(Mathf.Abs(speedDif) * acceration, velocityPower) * Mathf.Sign(speedDif);
+            float horizontalMovement = Mathf.Pow(Mathf.Abs(speedDif) * acceration, velocityPower) * Mathf.Sign(speedDif);
 
             
 
-            rb.AddForce(horizontileMovement * Vector2.right);
+            rb.AddForce(horizontalMovement * Vector2.right);
 
             
         }

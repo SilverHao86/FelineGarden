@@ -113,7 +113,7 @@ public class InventoryController : MonoBehaviour
         if(item.amount <= 0)
         {
             Remove(item);
-            ListItems(); 
+            ListItems();
             return;
         }
         itemObj.GetComponent<ItemController>().item = item;
@@ -135,7 +135,7 @@ public class InventoryController : MonoBehaviour
 
         if (witchIndex != -1)
         {
-            if (equippedIndex[0] != -1)
+            if (equippedIndex[0] != -1 && equippedIndex[0] < witchItems.Count)
             {
                 witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = emptyColor;
             }
@@ -144,7 +144,7 @@ public class InventoryController : MonoBehaviour
         }
         else
         {
-            if (equippedIndex[1] != -1)
+            if (equippedIndex[1] != -1 && equippedIndex[1] < catItems.Count)
             {
                 catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = emptyColor;
             }

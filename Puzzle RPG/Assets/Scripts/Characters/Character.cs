@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Composites;
 using UnityEngine.UI;
 using static PlantPlot;
 //using static UnityEditor.Experimental.GraphView.GraphView;
@@ -30,6 +31,7 @@ public class Character : MonoBehaviour
     private InputAction jump;
     private InputAction swapCharacter;
     private InputAction plantPlant;
+    private InputAction inventoryBinds;
 
     // Player Movement Floats
     // Values editable in Scriptable Object
@@ -58,11 +60,17 @@ public class Character : MonoBehaviour
         jump = data.playerControls.Player.Jump;
         swapCharacter = data.playerControls.Player.SwapCharater;
         plantPlant = data.playerControls.Player.PlantOnPlot;
+        inventoryBinds = data.playerControls.Player.Inventory;
 
         move.Enable();
         jump.Enable();
         swapCharacter.Enable();
         plantPlant.Enable();
+        inventoryBinds.Enable();
+        //inventoryBinds.performed += ctx =>
+        //{
+        //    InventoryController.instance.EquipIndex(this is Gardener ? 0 : 1, Mathf.RoundToInt(inventoryBinds.ReadValue<float>()));
+        //};
 
         rb = this.gameObject.GetComponent<Rigidbody2D>();
 
@@ -109,7 +117,6 @@ public class Character : MonoBehaviour
         {
             BeanStalkMovement(isOnStalk);
         }
-        
 
         
 

@@ -6,6 +6,15 @@ public class Checkpoint : MonoBehaviour
 {
     private const string PLAYER_TAG = "Player";
     private bool used = false;
+    private BoxCollider2D gate;
+
+    private void Awake()
+    {
+        //gate = transform.GetComponentsInChildren<BoxCollider2D>()[1]; // Also gets parent's component
+        Transform barrier = transform.GetChild(0);
+        gate = barrier.GetComponent<BoxCollider2D>();
+        gate.enabled = false;
+    }
 
     public bool Used
     {
@@ -16,8 +25,11 @@ public class Checkpoint : MonoBehaviour
     {
         if (collision.tag == PLAYER_TAG)
         {
+            if (used) { return; }
+
             used = true;
-            GameManager.Instance.Save(this);
+            gate.enabled = true;
+            GameManager.Instance.SaveCheckpoint(this);
         }
     }
 }

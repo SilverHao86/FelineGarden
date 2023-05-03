@@ -24,8 +24,11 @@ public class Character : MonoBehaviour
     public Animator anim;
 
     private Rigidbody2D rb;
-    
 
+    [SerializeField] private DialogueUI dialogueUI;
+    public DialogueUI DialogueUI => dialogueUI;
+
+    public IInteractable Interactable { get; set; }
 
     private InputAction move;
     private InputAction jump;
@@ -118,7 +121,11 @@ public class Character : MonoBehaviour
             BeanStalkMovement(isOnStalk);
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Interactable?.Interact(this);
+            Debug.Log("interacted start");
+        }
 
 
 

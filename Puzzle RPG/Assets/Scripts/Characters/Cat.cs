@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,31 @@ public class Cat : Character
     {
 
         base.OnTriggerStay2D(collision);
+        
+        // Distroy A Dirt Block
+        if (collision.gameObject.tag == "Dirt" && active && plantPlant.IsPressed())
+        {
+            int index = InventoryController.instance.equippedIndex[1];
+            Item tempItem;
+            try
+            {
+                tempItem = InventoryController.instance.catItems[index];
+                if (!tempItem.itemName.Equals("Garden Shovel"))
+                {
+                    Debug.Log(index);
+                    return;
+                }
+            }
+            catch (Exception e)
+            {
+                return;
+            }
 
+
+            
+                collision.gameObject.transform.parent.gameObject.GetComponent<DirtBlock>().StartDistroyingDirt();
+            
+        }
 
     }
 

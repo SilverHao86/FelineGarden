@@ -31,11 +31,11 @@ public class Character : MonoBehaviour
 
     public IInteractable Interactable { get; set; }
 
-    private InputAction move;
-    private InputAction jump;
-    private InputAction swapCharacter;
-    private InputAction plantPlant;
-    private InputAction inventoryBinds;
+    protected InputAction move;
+    protected InputAction jump;
+    protected InputAction swapCharacter;
+    protected InputAction plantPlant;
+    protected InputAction inventoryBinds;
 
     // Player Movement Floats
     // Values editable in Scriptable Object
@@ -381,7 +381,7 @@ public class Character : MonoBehaviour
         {
             //Debug.Log(plantPlant.inProgress);
 
-            if (plantPlant.WasPerformedThisFrame() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive && this is Gardener)
+            if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive && this is Gardener)
             {
                 // Dont Cut the Plant if the knife isn't equiped
                 int index = InventoryController.instance.equippedIndex[0];
@@ -405,6 +405,22 @@ public class Character : MonoBehaviour
 
             if (plantPlant.IsPressed() && collision.gameObject.GetComponent<PlantPlot>().PlantActive && this is Cat)
             {
+                int index = InventoryController.instance.equippedIndex[1];
+                Item tempItem;
+                try
+                {
+                    tempItem = InventoryController.instance.catItems[index];
+                    if (!tempItem.itemName.Equals("Plant Cutter"))
+                    {
+                        Debug.Log(index);
+                        return;
+                    }
+                }
+                catch (Exception e)
+                {
+                    return;
+                }
+
                 collision.gameObject.GetComponent<PlantPlot>().CutPlant();
             }
         }

@@ -62,6 +62,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Value"",
+                    ""id"": ""64306073-45e2-40f9-8507-f8629042cb68"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -229,6 +238,72 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""PlantOnPlot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1,2"",
+                    ""id"": ""c5ede080-24f0-40e5-a2fd-06b135e95e14"",
+                    ""path"": ""1DAxis(minValue=1,maxValue=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""9f16aac3-980b-48d0-bea3-c3c3988a1d2b"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""7e75e8aa-e0e6-4b77-8620-6fc0502a6335"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""3,4"",
+                    ""id"": ""a0b4d971-918f-46c5-acb7-a76965b8b35c"",
+                    ""path"": ""1DAxis(minValue=3,maxValue=4)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""c089d0d1-9ad2-4d5c-a7dd-1c383b7d4655"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""1709c70f-3e27-4fb5-8b89-3e7961d8e8c8"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -241,6 +316,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_SwapCharater = m_Player.FindAction("SwapCharater", throwIfNotFound: true);
         m_Player_PlantOnPlot = m_Player.FindAction("PlantOnPlot", throwIfNotFound: true);
+        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -304,6 +380,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_SwapCharater;
     private readonly InputAction m_Player_PlantOnPlot;
+    private readonly InputAction m_Player_Inventory;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -312,6 +389,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @SwapCharater => m_Wrapper.m_Player_SwapCharater;
         public InputAction @PlantOnPlot => m_Wrapper.m_Player_PlantOnPlot;
+        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -333,6 +411,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @PlantOnPlot.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlantOnPlot;
                 @PlantOnPlot.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlantOnPlot;
                 @PlantOnPlot.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPlantOnPlot;
+                @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -349,6 +430,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @PlantOnPlot.started += instance.OnPlantOnPlot;
                 @PlantOnPlot.performed += instance.OnPlantOnPlot;
                 @PlantOnPlot.canceled += instance.OnPlantOnPlot;
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
             }
         }
     }
@@ -359,5 +443,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnSwapCharater(InputAction.CallbackContext context);
         void OnPlantOnPlot(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
 }

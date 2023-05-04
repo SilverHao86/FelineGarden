@@ -86,6 +86,18 @@ public class GameManager : MonoBehaviour
             state = controller.Paused ? GameState.Pause : GameState.Play;
             controller.PauseMenu.SetActive(controller.Paused);
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SpawnAtLastCheckpoint();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Save();
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Load();
+        }
 
         if (state == GameState.Play)
         {
@@ -121,7 +133,6 @@ public class GameManager : MonoBehaviour
         gardenerChar.Cam.enabled = active;
         gardenerChar.ToggleMovement();
     }
-
     void SetActiveCat(bool active)
     {
         catChar.active = active;
@@ -129,10 +140,28 @@ public class GameManager : MonoBehaviour
         catChar.ToggleMovement();
     }
 
-    public void Save(Checkpoint cp)
+    public void SaveCheckpoint(Checkpoint cp)
     {
-        int cpIndex = checkpoints.IndexOf(cp);
-        playerData.ExtractAndSave(cpIndex);
+        //Debug.Log("Saved Checkpoint");
+        uint cpIndex = (uint)checkpoints.IndexOf(cp);
+        playerData.SaveCheckpoint(cpIndex);
+
+        // determine which character is inactive
+        Character character = gardenerChar.active ? catChar : gardenerChar;
+        // check if character is behind the wall
+        if(character.transform.position.x < cp.transform.position.x)
+        { // if it is move it
+            Vector3 newPos = cp.transform.position;
+            newPos.x -= 9.0f;
+            newPos.y += 1.0f;
+            character.transform.position = newPos;
+        }
+    }
+    public void SpawnAtLastCheckpoint()
+    {
+        //Debug.Log("Moving to last checkpoint");
+        int cpIndex = (int)playerData.CheckpointIndex;
+        MoveTo(checkpoints[cpIndex]);
     }
     public void Save()
     {
@@ -140,11 +169,21 @@ public class GameManager : MonoBehaviour
         playerData.ExtractAndSave();
         //dataManager.Save(playerData, "Test");
     }
+    public void Load()
+    {
+        playerData.LoadAndFill();
+    }
     private void InitData()
     {
         saveTimer = 0.0f;
         dataManager = new DataManager();
         playerData = new Data(catChar, gardenerChar);
         //playerData.Test();
+    }
+    private void MoveTo(Checkpoint cp)
+    {
+        Vector3 cpPosition = cp.gameObject.transform.position;
+        catChar.gameObject.transform.position = cpPosition;
+        gardenerChar.gameObject.transform.position = cpPosition;
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Composites;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static PlantPlot;
 //using static UnityEditor.Experimental.GraphView.GraphView;
 
@@ -24,14 +25,17 @@ public class Character : MonoBehaviour
     public Animator anim;
 
     private Rigidbody2D rb;
-    
 
+    [SerializeField] private DialogueUI dialogueUI;
+    public DialogueUI DialogueUI => dialogueUI;
 
-    private InputAction move;
-    private InputAction jump;
-    private InputAction swapCharacter;
-    private InputAction plantPlant;
-    private InputAction inventoryBinds;
+    public IInteractable Interactable { get; set; }
+
+    protected InputAction move;
+    protected InputAction jump;
+    protected InputAction swapCharacter;
+    protected InputAction plantPlant;
+    protected InputAction inventoryBinds;
 
     // Player Movement Floats
     // Values editable in Scriptable Object
@@ -118,7 +122,11 @@ public class Character : MonoBehaviour
             BeanStalkMovement(isOnStalk);
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Interactable?.Interact(this);
+            Debug.Log("interacted start");
+        }
 
 
 
@@ -375,11 +383,44 @@ public class Character : MonoBehaviour
 
             if (plantPlant.IsPressed() && !collision.gameObject.GetComponent<PlantPlot>().PlantActive && this is Gardener)
             {
+                // Dont Cut the Plant if the knife isn't equiped
+                int index = InventoryController.instance.equippedIndex[0];
+                Item tempItem;
+                try
+                {
+                    tempItem = InventoryController.instance.witchItems[index];
+                    if (tempItem.itemName.Equals("Ring of Strength"))
+                    {
+                        Debug.Log(index);
+                        return;
+                    }
+                }
+                catch (Exception e)
+                {
+                    return;
+                }
+
                 collision.gameObject.GetComponent<PlantPlot>().PlantPlant();
             }
 
             if (plantPlant.IsPressed() && collision.gameObject.GetComponent<PlantPlot>().PlantActive && this is Cat)
             {
+                int index = InventoryController.instance.equippedIndex[1];
+                Item tempItem;
+                try
+                {
+                    tempItem = InventoryController.instance.catItems[index];
+                    if (!tempItem.itemName.Equals("Plant Cutter"))
+                    {
+                        Debug.Log(index);
+                        return;
+                    }
+                }
+                catch (Exception e)
+                {
+                    return;
+                }
+
                 collision.gameObject.GetComponent<PlantPlot>().CutPlant();
             }
         }

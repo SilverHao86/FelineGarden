@@ -12,6 +12,7 @@ TagManager:
   - CatPickup
   - WaterPool
   - GardenerPickup
+  - Dirt
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - PushableBox
   - CatPickup
   - GardenerPickup
-  - 
+  - Dirt
   - 
   - 
   - 

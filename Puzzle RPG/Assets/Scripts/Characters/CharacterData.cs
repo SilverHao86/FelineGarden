@@ -25,6 +25,7 @@ public class CharacterData : ScriptableObject
     [field: SerializeField] public LayerMask beanstalkLayer { get; private set; }
 
     [field: SerializeField] public LayerMask boxLayer { get; private set; }
+    [field: SerializeField] public LayerMask dirtLayer { get; private set; }
 
 
     [field: SerializeField, HideInInspector] public PlayerInput playerControls { get; set; }

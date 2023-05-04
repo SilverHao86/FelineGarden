@@ -15,7 +15,7 @@ public class PlantPlot : MonoBehaviour
     [SerializeField] List<Sprite>  beanStalkMiddle;
     [SerializeField] Item beanStalkSeed;
 
-    [SerializeField, Header("Lily Specific")] private GameObject lilyBase;
+    [SerializeField, Header("Lily Specific")] private List<GameObject> lilyBases;
     [SerializeField] List<Sprite> lilyVariants;
     [SerializeField] Item lilySeed;
 
@@ -28,8 +28,8 @@ public class PlantPlot : MonoBehaviour
         
         PlantActive = false;
         //foreach (GameObject p in beanstalkBase) { p.gameObject.SetActive(PlantActive); }
-        if(beanstalkBase != null) { beanstalkBase.gameObject.SetActive(PlantActive); } 
-        if(lilyBase!= null) { lilyBase.gameObject.SetActive(PlantActive); }
+        if(beanstalkBase != null) { beanstalkBase.gameObject.SetActive(PlantActive); }
+        foreach (GameObject l in lilyBases) { l.SetActive(PlantActive); }; 
         
 
         //switch (PlotType)
@@ -54,7 +54,7 @@ public class PlantPlot : MonoBehaviour
         {
             tempItem = InventoryController.instance.witchItems[index];
             Debug.Log(index);
-            if (!(tempItem.amount > 0) || tempItem.id > 1) return; // Greater than 1 index == not a plant
+            if (!(tempItem.amount > 0) || tempItem.id > 1 || tempItem.itemName.Equals("Ring of Strength")) return; // Greater than 1 id == not a plant
             PlotType = (PlantType)tempItem.id;
         }
         catch(Exception e)
@@ -66,17 +66,41 @@ public class PlantPlot : MonoBehaviour
 
         PlantActive = true;
         // Remove Plant from inventory
-        InventoryController.instance.witchItems[index].amount--;
-        InventoryController.instance.FillInfo(InventoryController.instance.witchItems[index]);
+        
 
         switch (PlotType)
         {
             case PlantType.beanStalk:
+                InventoryController.instance.witchItems[index].amount--;
+                InventoryController.instance.FillInfo(InventoryController.instance.witchItems[index]);
                 PopulateBeanStalk();   
                 break;
 
             case PlantType.lily:
-                PopulateLilys();
+                int lilies = 0;
+                bool allertOnce = false;
+                bool stopPlanting = false;
+                for (int i = 0; i < lilyBases.Count; i++)
+                {
+                    if (InventoryController.instance.witchItems.Count != 0 && !stopPlanting)
+                    {
+                        InventoryController.instance.witchItems[index].amount--;
+                        InventoryController.instance.FillInfo(InventoryController.instance.witchItems[index]);
+                        lilies++;
+
+                        if (!(tempItem.amount > 0) || tempItem.id != 1) stopPlanting = true;
+                    }
+                    if (stopPlanting)
+                    {
+                        if (!allertOnce)
+                        {
+                            allertOnce = true;
+                            Debug.Log("Not enough Lilies");
+                        }
+                    }
+
+                }
+                PopulateLilys(lilies);
                 break;
 
             case PlantType.pollenPuff:
@@ -116,10 +140,25 @@ public class PlantPlot : MonoBehaviour
         {
             case PlantType.beanStalk:
                 InventoryController.instance.Add(beanStalkSeed);
+                for (int i = 0; i < plantMakeUp.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        plantMakeUp[i].SetActive(PlantActive);
+                    }
+                    else
+                    {
+                        Destroy(plantMakeUp[i]);
+                    }
+                }
                 break;
 
             case PlantType.lily:
-                InventoryController.instance.Add(lilySeed);
+                for (int i = 0; i < plantMakeUp.Count; i++)
+                {
+                    InventoryController.instance.Add(lilySeed);
+                    plantMakeUp[i].SetActive(PlantActive);
+                }
                 break;
 
             case PlantType.pollenPuff:
@@ -128,31 +167,23 @@ public class PlantPlot : MonoBehaviour
                 break;
         }
         
-
-
-        for (int i = 0; i < plantMakeUp.Count; i++)
-        {
-            if (i == 0)
-            {
-                plantMakeUp[i].SetActive(PlantActive);
-            }
-            else
-            {
-                Destroy(plantMakeUp[i]);
-            }
-        }
         plantMakeUp.Clear();
     }
 
 
-    public void PopulateLilys()
+    public void PopulateLilys(int lilyAmmount)
     {
+        Debug.Log("Lily Amm:" + lilyAmmount);
+        for (int i = 0; i < lilyAmmount; i++)
+        {
+            plantMakeUp.Add(lilyBases[i]);
+        }
         
-        plantMakeUp.Add(lilyBase);
+
         // Change their sprite randomly
         foreach (GameObject lily in plantMakeUp)
         {
-            lily.GetComponent<SpriteRenderer>().sprite = lilyVariants[UnityEngine.Random.Range(0, (lilyVariants.Count))];
+            lily.GetComponent<SpriteRenderer>().sprite = lilyVariants[UnityEngine.Random.Range(0, lilyVariants.Count)];
         }
     }
 

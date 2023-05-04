@@ -19,9 +19,15 @@ public class Data : ScriptableObject
     private string buffer = string.Empty;
     private InventoryController inventory = InventoryController.instance;
 
+    private uint checkpointIndex = 0;
     private Cat cat;
     private Gardener gardener;
     //public float timePlayed = 0;
+
+    public uint CheckpointIndex
+    {
+        get { return checkpointIndex; }
+    }
 
     public Data() { }
     public Data(
@@ -78,14 +84,17 @@ public class Data : ScriptableObject
 
         characterBuffer += SEPARATOR_1;
     }
-    public void Extract(int checkpointIndex = 0)
+    private void ExtractCheckpoint()
     {
-        ExtractInventory();
-        ExtractCharacters();
-
         // Save checkpoint data
         checkpointBuffer = string.Empty;
         checkpointBuffer += checkpointIndex;
+    }
+    public void Extract()
+    {
+        ExtractInventory();
+        ExtractCharacters();
+        ExtractCheckpoint();
     }
 
     private void FillInventory()
@@ -135,17 +144,21 @@ public class Data : ScriptableObject
         string gLocation = gardenerData[1];
 
         JsonUtility.FromJsonOverwrite(cData, cat);
-        Vector3 catLoc = Vector3.zero;
-        JsonUtility.FromJsonOverwrite(cLocation, catLoc);
+        Vector3 catLoc = JsonUtility.FromJson<Vector3>(cLocation);
+        catLoc.y += 0.5f;
+        cat.gameObject.transform.position = catLoc;
         JsonUtility.FromJsonOverwrite(gData, cat);
-        Vector3 gardenerLoc = Vector3.zero;
-        JsonUtility.FromJsonOverwrite(gLocation, gardenerLoc);
+        Vector3 gardenerLoc = JsonUtility.FromJson<Vector3>(gLocation);
+        gardenerLoc.y += 0.5f;
+        gardener.gameObject.transform.position = gardenerLoc;
+
+        // Set active player!!!!
     }
     private void FillCheckpoint()
     {
         if (checkpointBuffer.Length <= 0) { return; }
 
-        int index = int.Parse(checkpointBuffer);
+        checkpointIndex = uint.Parse(checkpointBuffer);
     }
     private void Fill()
     {
@@ -166,18 +179,22 @@ public class Data : ScriptableObject
     }
     private void Save()
     {
-        buffer = inventoryBuffer + characterBuffer;
+        buffer = inventoryBuffer + characterBuffer + checkpointBuffer;
         System.IO.File.WriteAllText(FILE_PATH, buffer);
+    }
+    public void SaveCheckpoint(uint checkpointIndex)
+    {
+        this.checkpointIndex = checkpointIndex;
     }
     public void ExtractAndSave()
     {
         Extract();
         Save();
     }
-    public void ExtractAndSave(int checkpointIndex)
+    public void LoadAndFill()
     {
-        Extract();
-        Save();
+        Load();
+        Fill();
     }
 
     public void SaveInventoryTest()

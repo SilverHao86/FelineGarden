@@ -33,9 +33,6 @@ MonoBehaviour:
   <boxLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 1024
-  <canPushBox>k__BackingField: 1
-  <canPlant>k__BackingField: 1
-  <canCutPlant>k__BackingField: 0
-  <isGrounded>k__BackingField: 1
+  <isGrounded>k__BackingField: 0
   <isClimbing>k__BackingField: 0
   <canClimb>k__BackingField: 0

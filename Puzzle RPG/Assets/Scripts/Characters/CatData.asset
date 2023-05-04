@@ -17,9 +17,9 @@ MonoBehaviour:
   <decelRate>k__BackingField: 9
   <velocityPower>k__BackingField: 1.2
   <frictionAmm>k__BackingField: 0.3
-  <jumpForce>k__BackingField: 10
+  <jumpForce>k__BackingField: 9
   <jumpCut>k__BackingField: 0.1
-  <fallMult>k__BackingField: 1.9
+  <fallMult>k__BackingField: 2
   <jumpCooldown>k__BackingField: 0.2
   <groundLayer>k__BackingField:
     serializedVersion: 2
@@ -33,9 +33,6 @@ MonoBehaviour:
   <boxLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 1024
-  <canPushBox>k__BackingField: 0
-  <canPlant>k__BackingField: 0
-  <canCutPlant>k__BackingField: 1
   <isGrounded>k__BackingField: 1
   <isClimbing>k__BackingField: 0
   <canClimb>k__BackingField: 0

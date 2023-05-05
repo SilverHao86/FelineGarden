@@ -21,6 +21,11 @@ MonoBehaviour:
   <jumpCut>k__BackingField: 0.1
   <fallMult>k__BackingField: 3
   <jumpCooldown>k__BackingField: 0.2
+  <characters>k__BackingField:
+  - {fileID: 9100000, guid: 32e3b480584f07541afbfefdd9c65766, type: 2}
+  - {fileID: 9100000, guid: d62f9494c774d9746800c642006c3159, type: 2}
+  - {fileID: 9100000, guid: e44cefd3580c11740935f7c17abd9548, type: 2}
+  <currentCharacter>k__BackingField: {fileID: 9100000, guid: 32e3b480584f07541afbfefdd9c65766, type: 2}
   <groundLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 64
@@ -33,6 +38,9 @@ MonoBehaviour:
   <boxLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 1024
-  <isGrounded>k__BackingField: 0
+  <dirtLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 0
+  <isGrounded>k__BackingField: 1
   <isClimbing>k__BackingField: 0
   <canClimb>k__BackingField: 0

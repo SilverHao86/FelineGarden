@@ -107,6 +107,7 @@ MonoBehaviour:
   cantPushMat: {fileID: 6200000, guid: 5e70c401f8d3d684aab67d2cbd021adc, type: 2}
   data: {fileID: 11400000, guid: 9f2ab107976962a4fb06d2130d102d1e, type: 2}
   anim: {fileID: 8671746039974083096}
+  dialogueUI: {fileID: 0}
 --- !u!61 &-4716959951092709616
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -164,7 +165,7 @@ Animator:
   m_GameObject: {fileID: 7939073940180743610}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 32e3b480584f07541afbfefdd9c65766, type: 2}
+  m_Controller: {fileID: 9100000, guid: e44cefd3580c11740935f7c17abd9548, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

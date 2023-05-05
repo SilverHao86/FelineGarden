@@ -19,6 +19,8 @@ public class CharacterData : ScriptableObject
     [field: SerializeField] public float jumpCut { get; private set; }
     [field: SerializeField] public float fallMult { get; private set; }
     [field: SerializeField] public float jumpCooldown { get; private set; }
+    [field: SerializeField] public RuntimeAnimatorController[] characters { get; private set; }
+    [field: SerializeField] public RuntimeAnimatorController currentCharacter { get; set; }
 
     [field: SerializeField, Header("Layer Fields"), Space(5)] public LayerMask groundLayer { get; private set; }
     [field: SerializeField] public LayerMask plotLayer { get; private set; }
@@ -33,7 +35,7 @@ public class CharacterData : ScriptableObject
     [field: SerializeField, HideInInspector] public bool isClimbing { get; set; }
     [field: SerializeField, HideInInspector] public bool canClimb { get; set; }
 
-    
+
 
 
 }

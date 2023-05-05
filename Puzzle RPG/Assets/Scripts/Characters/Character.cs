@@ -97,6 +97,9 @@ public class Character : MonoBehaviour
         canJump = false;
         jumpCooldown = data.jumpCooldown;
         currentCooldown = 0;
+
+        anim = gameObject.GetComponent<Animator>();
+        anim.runtimeAnimatorController = data.currentCharacter;
     }
 
     // Update is called once per frame

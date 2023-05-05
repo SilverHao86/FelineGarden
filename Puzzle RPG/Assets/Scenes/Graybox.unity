@@ -16067,6 +16067,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4810259292905169870}
     - target: {fileID: 8677174434690043777, guid: 362020e0387c03a439f23cb8b9fdb5a1, type: 3}
+      propertyPath: dialogueUI
+      value: 
+      objectReference: {fileID: 56549812}
+    - target: {fileID: 8677174434690043777, guid: 362020e0387c03a439f23cb8b9fdb5a1, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
@@ -16682,6 +16686,10 @@ PrefabInstance:
       propertyPath: data
       value: 
       objectReference: {fileID: 11400000, guid: 9f2ab107976962a4fb06d2130d102d1e, type: 2}
+    - target: {fileID: 4597109299420616328, guid: c12d5f8a692739c4d84b176f210e0a61, type: 3}
+      propertyPath: dialogueUI
+      value: 
+      objectReference: {fileID: 56549812}
     - target: {fileID: 4597109299420616328, guid: c12d5f8a692739c4d84b176f210e0a61, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 64

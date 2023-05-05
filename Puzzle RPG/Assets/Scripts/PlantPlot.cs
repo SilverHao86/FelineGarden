@@ -9,6 +9,8 @@ public class PlantPlot : MonoBehaviour
     [field: SerializeField] public PlantType PlotType { get; private set; }
     [HideInInspector] public bool PlantActive { get; set; }
 
+    //public IInteractable Interactable { get; set; }
+
     [SerializeField, Header("Beanstalk Specific")] private GameObject beanstalkBase; 
     [SerializeField, Range(1, 10)] private int beanStalkSize; 
     [SerializeField] Sprite beanStalkTop;
@@ -18,6 +20,9 @@ public class PlantPlot : MonoBehaviour
     [SerializeField, Header("Lily Specific")] private List<GameObject> lilyBases;
     [SerializeField] List<Sprite> lilyVariants;
     [SerializeField] Item lilySeed;
+
+    [SerializeField] private DialogueUI dialogueUI;
+    public DialogueUI DialogueUI => dialogueUI;
 
 
     private List<GameObject> plantMakeUp = new List<GameObject>();
@@ -46,7 +51,7 @@ public class PlantPlot : MonoBehaviour
         //}
     }
 
-    public void PlantPlant()
+    public void PlantPlant(IInteractable interactable, Character character)
     {
         int index = InventoryController.instance.equippedIndex[0];
         Item tempItem;
@@ -54,7 +59,7 @@ public class PlantPlot : MonoBehaviour
         {
             tempItem = InventoryController.instance.witchItems[index];
             Debug.Log(index);
-            if (!(tempItem.amount > 0) || tempItem.id > 1 || tempItem.itemName.Equals("Ring of Strength")) return; // Greater than 1 id == not a plant
+            if (!(tempItem.amount > 0) || tempItem.id > 1 || tempItem.itemName.Equals("Ring of Strength")) { interactable?.Interact(character, character.data.dialogues[4]); return; } // Greater than 1 id == not a plant
             PlotType = (PlantType)tempItem.id;
         }
         catch(Exception e)
@@ -95,6 +100,7 @@ public class PlantPlot : MonoBehaviour
                         if (!allertOnce)
                         {
                             allertOnce = true;
+                            interactable?.Interact(character, character.data.dialogues[1]);
                             Debug.Log("Not enough Lilies");
                         }
                     }

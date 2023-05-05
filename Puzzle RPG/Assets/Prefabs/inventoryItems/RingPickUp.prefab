@@ -126,3 +126,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <seedType>k__BackingField: 3
   item: {fileID: 11400000, guid: ba9ec8ddfa750a041ba071bdb910f8ac, type: 2}
+  <pickUpDialogue>k__BackingField: {fileID: 11400000, guid: 82547a6f818eec54e8ce689edc7b2e9a, type: 2}

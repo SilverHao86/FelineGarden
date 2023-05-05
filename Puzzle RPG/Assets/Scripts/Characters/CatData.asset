@@ -36,6 +36,12 @@ MonoBehaviour:
   <dirtLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 8192
-  <isGrounded>k__BackingField: 1
+  <dialogues>k__BackingField:
+  - {fileID: 11400000, guid: dce7e539d3e468740a604443cc61abd6, type: 2}
+  - {fileID: 11400000, guid: 61436c28fec99f241a71e98b779df01a, type: 2}
+  - {fileID: 11400000, guid: f3a382ffa45811e468276576ce32c8c6, type: 2}
+  - {fileID: 11400000, guid: 239a6dc7c90dc5546bbf649ec61f1b66, type: 2}
+  - {fileID: 11400000, guid: e41853482fef5e8428af166733d988be, type: 2}
+  <isGrounded>k__BackingField: 0
   <isClimbing>k__BackingField: 0
   <canClimb>k__BackingField: 0

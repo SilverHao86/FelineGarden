@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 1059920337125815295}
   - component: {fileID: -3247266297171104783}
   - component: {fileID: 6657615083535925716}
+  - component: {fileID: 8836414809903404663}
+  - component: {fileID: -6420787012922268459}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Player
@@ -107,6 +109,7 @@ MonoBehaviour:
   cantPushMat: {fileID: 6200000, guid: 5e70c401f8d3d684aab67d2cbd021adc, type: 2}
   data: {fileID: 11400000, guid: 67fc5bbe7175f124ea462c7ee0d1d41b, type: 2}
   anim: {fileID: 0}
+  dialogueUI: {fileID: 0}
 --- !u!61 &1059920337125815295
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -174,3 +177,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &8836414809903404663
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5730878486760737959}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.25
+--- !u!114 &-6420787012922268459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5730878486760737959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5ca2e64c6b0764f8614c8f8be5bb44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueObject: {fileID: 11400000, guid: dce7e539d3e468740a604443cc61abd6, type: 2}

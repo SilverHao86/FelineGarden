@@ -97,7 +97,7 @@ public class PlantPlot : MonoBehaviour
                     }
                     if (stopPlanting)
                     {
-                        if (!allertOnce)
+                        if (!allertOnce && lilies != lilyBases.Count)
                         {
                             allertOnce = true;
                             interactable?.Interact(character, character.data.dialogues[1]);

@@ -17,7 +17,7 @@ MonoBehaviour:
   <decelRate>k__BackingField: 8
   <velocityPower>k__BackingField: 1.2
   <frictionAmm>k__BackingField: 0.3
-  <jumpForce>k__BackingField: 8.4
+  <jumpForce>k__BackingField: 8.5
   <jumpCut>k__BackingField: 0.1
   <fallMult>k__BackingField: 2
   <jumpCooldown>k__BackingField: 0.2

@@ -11,7 +11,7 @@ public class Data : ScriptableObject
     private const string FILE_NAME = "Data";
     private const string FILE_EXT = ".txt";
     private const string FILE = FILE_NAME + FILE_EXT;
-    private string SAVE_FOLDER = Application.dataPath + "/Saves/";
+    private string SAVE_FOLDER;
     private readonly string FILE_PATH;
     private string inventoryBuffer = string.Empty;
     private string characterBuffer = string.Empty;
@@ -29,6 +29,10 @@ public class Data : ScriptableObject
         get { return checkpointIndex; }
     }
 
+    private void OnEnable()
+    {
+        SAVE_FOLDER = Application.dataPath + "/Saves/"; // Error pops when dataPath is used 
+    }
     public Data() { }
     public Data(
         Cat cat,
@@ -106,19 +110,21 @@ public class Data : ScriptableObject
         string[] catItems = characterInventories[1].Split(SEPARATOR_3);
         string[] equippedIndexes = characterInventories[2].Split(SEPARATOR_3);
 
-        List <Item> witchItems2 = new List<Item>(witchItems.Length);
-        List<Item> catItems2 = new List<Item>(catItems.Length);
+        List<Item> witchItems2 = new List<Item>(witchItems.Length);
+        List<Item> catItems2 = new List<Item>(catItems.Length); // if string is empty it is 0
 
         for (int i = 0; i < witchItems.Length; i++)
         {
             Item item = new Item();
             JsonUtility.FromJsonOverwrite(witchItems[i], item);
+            if (item.itemName == null) break;
             witchItems2.Add(item);
         }
         for (int i = 0; i < catItems.Length; i++)
         {
             Item item = new Item();
             JsonUtility.FromJsonOverwrite(catItems[i], item);
+            if (item.itemName == null) break;
             catItems2.Add(item);
         }
 
@@ -147,12 +153,12 @@ public class Data : ScriptableObject
         Vector3 catLoc = JsonUtility.FromJson<Vector3>(cLocation);
         catLoc.y += 0.5f;
         cat.gameObject.transform.position = catLoc;
-        JsonUtility.FromJsonOverwrite(gData, cat);
+        JsonUtility.FromJsonOverwrite(gData, gardener);
         Vector3 gardenerLoc = JsonUtility.FromJson<Vector3>(gLocation);
         gardenerLoc.y += 0.5f;
         gardener.gameObject.transform.position = gardenerLoc;
 
-        // Set active player!!!!
+        if(gardener.active && cat.active) { cat.active = false; }
     }
     private void FillCheckpoint()
     {
@@ -185,14 +191,17 @@ public class Data : ScriptableObject
     public void SaveCheckpoint(uint checkpointIndex)
     {
         this.checkpointIndex = checkpointIndex;
+        ExtractAndSave(); // Save at checkpoints
     }
     public void ExtractAndSave()
     {
+        Debug.Log("Saved");
         Extract();
         Save();
     }
     public void LoadAndFill()
     {
+        Debug.Log("Loaded");
         Load();
         Fill();
     }

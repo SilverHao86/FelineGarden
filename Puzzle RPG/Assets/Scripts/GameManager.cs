@@ -81,10 +81,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(controller.PauseKey))
         {
-            controller.Paused = !controller.Paused;
-            Time.timeScale = controller.Paused ? 0f : 1f; // If paused is true, stop time scale, if it is false, set the timescale to normal values
-            state = controller.Paused ? GameState.Pause : GameState.Play;
-            controller.PauseMenu.SetActive(controller.Paused);
+            Pause();
         }
         if (Input.GetKeyDown(KeyCode.Minus))
         {
@@ -128,7 +125,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
     void SetActiveGardner(bool active)
     {
         gardenerChar.active = active;
@@ -142,12 +138,16 @@ public class GameManager : MonoBehaviour
         catChar.ToggleMovement();
     }
 
+    public void Pause()
+    {
+        controller.Paused = !controller.Paused;
+        Time.timeScale = controller.Paused ? 0f : 1f; // If paused is true, stop time scale, if it is false, set the timescale to normal values
+        state = controller.Paused ? GameState.Pause : GameState.Play;
+        controller.PauseMenu.SetActive(controller.Paused);
+    }
+
     public bool SaveCheckpoint(Checkpoint cp)
     {
-        //Debug.Log("Saved Checkpoint");
-        uint cpIndex = (uint)checkpoints.IndexOf(cp);
-        playerData.SaveCheckpoint(cpIndex);
-
         // determine which character is inactive
         Character character = gardenerChar.active ? catChar : gardenerChar;
         // check if character is behind the wall
@@ -159,6 +159,10 @@ public class GameManager : MonoBehaviour
             //character.transform.position = newPos;
             return false;
         }
+
+        //Debug.Log("Saved Checkpoint");
+        uint cpIndex = (uint)checkpoints.IndexOf(cp);
+        playerData.SaveCheckpoint(cpIndex);
         return true;
     }
     public void SpawnAtLastCheckpoint()
@@ -166,6 +170,10 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Moving to last checkpoint");
         int cpIndex = (int)playerData.CheckpointIndex;
         MoveTo(checkpoints[cpIndex]);
+    }
+    public void LoadSavedCheckpoint()
+    {
+        playerData.LoadAndFill();
     }
     public void Save()
     {
@@ -182,7 +190,6 @@ public class GameManager : MonoBehaviour
         saveTimer = 0.0f;
         dataManager = new DataManager();
         playerData = new Data(catChar, gardenerChar);
-        //playerData.Test();
     }
     private void MoveTo(Checkpoint cp)
     {

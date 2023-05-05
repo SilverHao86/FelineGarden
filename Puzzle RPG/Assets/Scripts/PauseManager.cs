@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
+    public void Resume()
+    {
+        GameManager.Instance.Pause();
+    }
+
     /// <summary>
     /// Returns the user to the start screen whenever called
     /// </summary>
@@ -14,6 +19,16 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1.0f;
         
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void LastCheckpoint()
+    {
+        GameManager.Instance.SpawnAtLastCheckpoint();
+    }
+
+    public void LoadSave()
+    {
+        GameManager.Instance.LoadSavedCheckpoint();
     }
 
     /// <summary>

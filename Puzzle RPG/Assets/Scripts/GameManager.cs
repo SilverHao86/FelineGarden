@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
             state = controller.Paused ? GameState.Pause : GameState.Play;
             controller.PauseMenu.SetActive(controller.Paused);
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Minus))
         {
             SpawnAtLastCheckpoint();
         }

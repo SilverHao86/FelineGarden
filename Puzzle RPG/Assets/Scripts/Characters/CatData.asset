@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff1d27e3313b2b249913c9508c0c40f3, type: 3}
   m_Name: CatData
   m_EditorClassIdentifier: 
-  <movementSpeed>k__BackingField: 9
+  <movementSpeed>k__BackingField: 8
   <accelRate>k__BackingField: 4
-  <decelRate>k__BackingField: 9
+  <decelRate>k__BackingField: 8
   <velocityPower>k__BackingField: 1.2
   <frictionAmm>k__BackingField: 0.3
-  <jumpForce>k__BackingField: 10
+  <jumpForce>k__BackingField: 8.4
   <jumpCut>k__BackingField: 0.1
-  <fallMult>k__BackingField: 1.9
+  <fallMult>k__BackingField: 2
   <jumpCooldown>k__BackingField: 0.2
   <groundLayer>k__BackingField:
     serializedVersion: 2
@@ -36,6 +36,16 @@ MonoBehaviour:
   <dirtLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 8192
-  <isGrounded>k__BackingField: 1
+  <dialogues>k__BackingField:
+  - {fileID: 11400000, guid: dce7e539d3e468740a604443cc61abd6, type: 2}
+  - {fileID: 11400000, guid: 61436c28fec99f241a71e98b779df01a, type: 2}
+  - {fileID: 11400000, guid: f3a382ffa45811e468276576ce32c8c6, type: 2}
+  - {fileID: 11400000, guid: 239a6dc7c90dc5546bbf649ec61f1b66, type: 2}
+  - {fileID: 11400000, guid: e41853482fef5e8428af166733d988be, type: 2}
+  <catFlavorDialogues>k__BackingField:
+  - {fileID: 11400000, guid: 873e2ebf2dd88e44887b630117e95d9b, type: 2}
+  - {fileID: 11400000, guid: f599dd335ccb08f469ca432cfe2c75a0, type: 2}
+  - {fileID: 11400000, guid: afcc58d2dc13e8a429487af6afc19833, type: 2}
+  <isGrounded>k__BackingField: 0
   <isClimbing>k__BackingField: 0
   <canClimb>k__BackingField: 0

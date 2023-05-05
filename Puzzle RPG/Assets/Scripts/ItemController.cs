@@ -8,6 +8,7 @@ public class ItemController : MonoBehaviour
     [field: SerializeField] public PlantType seedType { get; private set; }
     public Item item;
     private int index;
+    [field: SerializeField] public DialogueObject pickUpDialogue { get; private set; }
     // Start is called before the first frame update
     void Start()
     {

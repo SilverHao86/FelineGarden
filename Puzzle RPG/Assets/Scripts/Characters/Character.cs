@@ -50,6 +50,8 @@ public class Character : MonoBehaviour
 
     private float pauseVineCollision;
 
+    private int charIndex;
+
 
     // Start is called before the first frame update
     protected void Awake()
@@ -71,10 +73,7 @@ public class Character : MonoBehaviour
         swapCharacter.Enable();
         plantPlant.Enable();
         inventoryBinds.Enable();
-        //inventoryBinds.performed += ctx =>
-        //{
-        //    InventoryController.instance.EquipIndex(this is Gardener ? 0 : 1, Mathf.RoundToInt(inventoryBinds.ReadValue<float>()));
-        //};
+        inventoryBinds.performed += EquipFromKeyValue;
 
         rb = this.gameObject.GetComponent<Rigidbody2D>();
 
@@ -97,6 +96,10 @@ public class Character : MonoBehaviour
         canJump = false;
         jumpCooldown = data.jumpCooldown;
         currentCooldown = 0;
+
+
+
+        charIndex = this is Gardener ? 0 : 1;
     }
 
     // Update is called once per frame
@@ -360,6 +363,8 @@ public class Character : MonoBehaviour
             // Get the seed type
             InventoryController.instance.Add(collision.gameObject.GetComponent<ItemController>().item);
 
+
+            InventoryController.instance.UpdateEquipDisplay();
             // Need to add, add to inventory
             Destroy(collision.gameObject);
 
@@ -461,13 +466,11 @@ public class Character : MonoBehaviour
         bool canPush = false;
         if (this is Gardener)
         {
-            // Dont Cut the Plant if the knife isn't equiped
-            int index = InventoryController.instance.equippedIndex[0];
-            Item tempItem;
+            // Only push the box if the ring is in inventory
             try
             {
-                tempItem = InventoryController.instance.witchItems[index];
-                if (tempItem.itemName.Equals("Ring of Strength"))
+                int hasItem = InventoryController.instance.ListHasItem(0, "Ring of Strength");
+                if (hasItem != -1)
                 {
                     canPush = true;
                     boxRb.WakeUp();
@@ -490,5 +493,14 @@ public class Character : MonoBehaviour
             boxRb.bodyType = RigidbodyType2D.Kinematic;
             boxRb.Sleep();
         }
+    }
+
+    private void EquipFromKeyValue(InputAction.CallbackContext ctx)
+    {
+        if (!active) return;
+        int numKeyValue = 0;
+        int.TryParse(ctx.control.name, out numKeyValue);
+        if (numKeyValue > 0) InventoryController.instance.EquipIndex(charIndex, numKeyValue - 1);
+        
     }
 }

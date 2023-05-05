@@ -240,70 +240,48 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""1,2"",
-                    ""id"": ""c5ede080-24f0-40e5-a2fd-06b135e95e14"",
-                    ""path"": ""1DAxis(minValue=1,maxValue=2)"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Inventory"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""9f16aac3-980b-48d0-bea3-c3c3988a1d2b"",
+                    ""name"": """",
+                    ""id"": ""9383be62-8462-44cc-967a-33160f061686"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""Scale"",
                     ""groups"": """",
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""7e75e8aa-e0e6-4b77-8620-6fc0502a6335"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Inventory"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""3,4"",
-                    ""id"": ""a0b4d971-918f-46c5-acb7-a76965b8b35c"",
-                    ""path"": ""1DAxis(minValue=3,maxValue=4)"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Inventory"",
-                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""negative"",
-                    ""id"": ""c089d0d1-9ad2-4d5c-a7dd-1c383b7d4655"",
-                    ""path"": ""<Keyboard>/3"",
+                    ""name"": """",
+                    ""id"": ""e415b2df-0b66-4743-97a3-fe0762b21df6"",
+                    ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""Scale(factor=2)"",
                     ""groups"": """",
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""positive"",
-                    ""id"": ""1709c70f-3e27-4fb5-8b89-3e7961d8e8c8"",
-                    ""path"": ""<Keyboard>/4"",
+                    ""name"": """",
+                    ""id"": ""583e231f-7f85-4591-b6ae-337574c2d1ad"",
+                    ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""Scale(factor=3)"",
                     ""groups"": """",
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": true
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""309a2c96-e80f-449d-aa6e-99306a4fa512"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }

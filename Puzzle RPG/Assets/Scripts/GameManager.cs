@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
                     catChar.active = catChar.Cam.enabled;
                     catChar.ToggleMovement();
                     gardenerChar.ToggleMovement();
+
+                    InventoryController.instance.SwapEquippedDisplay(gardenerChar.active ? 0 : 1);
                 }
                
             }

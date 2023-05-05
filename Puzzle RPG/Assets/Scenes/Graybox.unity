@@ -758,6 +758,7 @@ MonoBehaviour:
   - {fileID: 113977481, guid: 3f0f0a697852d5641863aafa3e5ac1c8, type: 3}
   - {fileID: -636415497, guid: 3f0f0a697852d5641863aafa3e5ac1c8, type: 3}
   lilySeed: {fileID: 11400000, guid: 2baa2cb32be4648479383775274ac4ee, type: 2}
+  dialogueUI: {fileID: 0}
 --- !u!61 &61879376
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2195,9 +2196,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 889599305}
     - target: {fileID: 2390236459135877044, guid: a7a86745f42c7b24f9b509a49acc0116, type: 3}
+      propertyPath: catEquipped
+      value: 
+      objectReference: {fileID: 1589666103}
+    - target: {fileID: 2390236459135877044, guid: a7a86745f42c7b24f9b509a49acc0116, type: 3}
       propertyPath: witchContent
       value: 
       objectReference: {fileID: 758430374}
+    - target: {fileID: 2390236459135877044, guid: a7a86745f42c7b24f9b509a49acc0116, type: 3}
+      propertyPath: witchEquipped
+      value: 
+      objectReference: {fileID: 1503921365}
     - target: {fileID: 2390236459135877044, guid: a7a86745f42c7b24f9b509a49acc0116, type: 3}
       propertyPath: catItems.Array.size
       value: 0
@@ -7800,6 +7809,7 @@ MonoBehaviour:
   - {fileID: 113977481, guid: 3f0f0a697852d5641863aafa3e5ac1c8, type: 3}
   - {fileID: -636415497, guid: 3f0f0a697852d5641863aafa3e5ac1c8, type: 3}
   lilySeed: {fileID: 11400000, guid: 2baa2cb32be4648479383775274ac4ee, type: 2}
+  dialogueUI: {fileID: 0}
 --- !u!61 &980594822
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10976,6 +10986,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1503921365 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1988217358199332352, guid: b5d59119f73831c41b2ed45832d52287, type: 3}
+  m_PrefabInstance: {fileID: 1677451170}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1511765092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11695,6 +11710,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2264142111182347296, guid: 1e9ff2f9b109d0349878e07445e30aa2, type: 3}
   m_PrefabInstance: {fileID: 1581686175}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1589666103 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5483965151343885666, guid: b5d59119f73831c41b2ed45832d52287, type: 3}
+  m_PrefabInstance: {fileID: 1677451170}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1592553378 stripped
 Transform:
@@ -16146,6 +16166,7 @@ MonoBehaviour:
   - {fileID: 113977481, guid: 3f0f0a697852d5641863aafa3e5ac1c8, type: 3}
   - {fileID: -636415497, guid: 3f0f0a697852d5641863aafa3e5ac1c8, type: 3}
   lilySeed: {fileID: 11400000, guid: 2baa2cb32be4648479383775274ac4ee, type: 2}
+  dialogueUI: {fileID: 0}
 --- !u!1 &6146844494932345332
 GameObject:
   m_ObjectHideFlags: 0

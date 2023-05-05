@@ -60,7 +60,13 @@ public class Cat : Character
         {
             InventoryController.instance.Add(collision.gameObject.GetComponent<ItemController>().item);
             collision.gameObject.GetComponent<ItemController>().Equipped();
+            Interactable?.Interact(this, collision.gameObject.GetComponent<ItemController>().pickUpDialogue);
             Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "GardenerPickup" && active)
+        {
+            Interactable?.Interact(this, data.dialogues[3]);
         }
     }
 }

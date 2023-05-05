@@ -121,12 +121,13 @@ public class Character : MonoBehaviour
         {
             BeanStalkMovement(isOnStalk);
         }
-
+        /*
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Interactable?.Interact(this);
+            
             Debug.Log("interacted start");
         }
+        */
 
 
 
@@ -400,7 +401,7 @@ public class Character : MonoBehaviour
                     return;
                 }
 
-                collision.gameObject.GetComponent<PlantPlot>().PlantPlant();
+                collision.gameObject.GetComponent<PlantPlot>().PlantPlant(Interactable, this);
             }
 
             if (plantPlant.IsPressed() && collision.gameObject.GetComponent<PlantPlot>().PlantActive && this is Cat)

@@ -1,4 +1,4 @@
 public interface IInteractable
 {
-    void Interact(Character player);
+    void Interact(Character player, DialogueObject dialogue);
 }

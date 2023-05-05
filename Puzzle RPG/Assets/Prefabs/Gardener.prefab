@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -4716959951092709616}
   - component: {fileID: -9029026136156153479}
   - component: {fileID: 8671746039974083096}
+  - component: {fileID: 509221133698836899}
   m_Layer: 0
   m_Name: Gardener
   m_TagString: Player
@@ -107,6 +108,7 @@ MonoBehaviour:
   cantPushMat: {fileID: 6200000, guid: 5e70c401f8d3d684aab67d2cbd021adc, type: 2}
   data: {fileID: 11400000, guid: 9f2ab107976962a4fb06d2130d102d1e, type: 2}
   anim: {fileID: 8671746039974083096}
+  dialogueUI: {fileID: 0}
 --- !u!61 &-4716959951092709616
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -174,3 +176,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &509221133698836899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7939073940180743610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5ca2e64c6b0764f8614c8f8be5bb44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueObject: {fileID: 0}

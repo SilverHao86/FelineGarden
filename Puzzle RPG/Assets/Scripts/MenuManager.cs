@@ -111,7 +111,7 @@ public class MenuManager : MonoBehaviour
         audioSource.clip = playSFX;
         audioSource.Play();
         Debug.Log("Customize");
-        SceneManager.LoadScene("Customization");
+        SceneManager.LoadSceneAsync("Customization");
     }
 
     /// <summary>

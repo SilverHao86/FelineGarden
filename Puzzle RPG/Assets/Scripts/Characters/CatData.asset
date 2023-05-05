@@ -21,6 +21,8 @@ MonoBehaviour:
   <jumpCut>k__BackingField: 0.1
   <fallMult>k__BackingField: 2
   <jumpCooldown>k__BackingField: 0.2
+  <characters>k__BackingField: []
+  <currentCharacter>k__BackingField: {fileID: 9100000, guid: 3619b568fe70416478d6bb0181fc7d42, type: 2}
   <groundLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 64

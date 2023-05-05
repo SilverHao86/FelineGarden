@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f00c12d68dd3f02439e2f89593fd9c21
+guid: 67e08e553d4a7c64b95807abb6a11205
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: B_witch_run_0
+      name: W_witch_charge_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 336
-        width: 32
-        height: 48
+        y: 396.375
+        width: 60
+        height: 56.625
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f1e8d81fd3ed6f41bcd7787245e088c
-      internalID: -961910515
+      spriteID: ebbd5421ac765414d9f57d04745cfb25
+      internalID: -1305753686
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: B_witch_run_1
+      name: W_witch_charge_3
       rect:
         serializedVersion: 2
         x: 0
-        y: 288
-        width: 32
-        height: 48
+        y: 268.375
+        width: 60
+        height: 56.625
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c099512281e3d84d93c6b5fd763e8b7
-      internalID: -385303814
+      spriteID: a64321b4d7719ee4fa8f96838ad980be
+      internalID: -49578204
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: B_witch_run_2
+      name: W_witch_charge_5
       rect:
         serializedVersion: 2
         x: 0
-        y: 240
-        width: 32
-        height: 48
+        y: 140.375
+        width: 60
+        height: 56.625
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07566183fae45b8478cbe3ddeb9bf412
-      internalID: -1936869318
+      spriteID: 16b2f4f75885a39479dcb495f67c40ed
+      internalID: 1686969148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: B_witch_run_3
+      name: W_witch_charge_7
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
-        width: 32
-        height: 48
+        y: 12.375
+        width: 60
+        height: 56.625
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63cab4b9ae4067f45b1a3c66ff5fd080
-      internalID: 1435242562
+      spriteID: 05ce1416598e88442a3a3f32dccdfe97
+      internalID: -1103780406
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: B_witch_run_4
+      name: W_witch_charge_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 144
-        width: 32
-        height: 48
+        y: 460.375
+        width: 60
+        height: 56.625
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15248b257ce74714d8f8b701a046afbc
-      internalID: -862292199
+      spriteID: 18a7633ffb170b74ba182b8d61bf2e31
+      internalID: 2003346007
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: B_witch_run_5
+      name: W_witch_charge_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
-        width: 32
-        height: 48
+        y: 332.375
+        width: 60
+        height: 56.625
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +271,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 271ef4af82e96e74cae10334d53230fd
-      internalID: 2084309379
+      spriteID: dc9f43929fdd5314caa110099867cec7
+      internalID: -1128307660
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: B_witch_run_6
+      name: W_witch_charge_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 48
-        width: 32
-        height: 48
+        y: 204.375
+        width: 60
+        height: 56.625
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,20 +292,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fbbed57c2ce187b47a9d3c203f632e22
-      internalID: 1336215969
+      spriteID: c851999f36370074ba1e00f5487cf4b7
+      internalID: 1004095476
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: B_witch_run_7
+      name: W_witch_charge_6
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 32
-        height: 48
+        y: 76.375
+        width: 60
+        height: 56.625
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,8 +313,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3372661637e27749bc870ed7775bdac
-      internalID: 862533432
+      spriteID: df94b5d2f3e2d53499ec0fca9d84af23
+      internalID: -1455925704
       vertices: []
       indices: 
       edges: []
@@ -330,14 +330,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      B_witch_run_2: -1936869318
-      B_witch_run_3: 1435242562
-      B_witch_run_7: 862533432
-      B_witch_run_4: -862292199
-      B_witch_run_6: 1336215969
-      B_witch_run_0: -961910515
-      B_witch_run_1: -385303814
-      B_witch_run_5: 2084309379
+      W_witch_charge_0: 2003346007
+      W_witch_charge_6: -1455925704
+      W_witch_charge_1: -1305753686
+      W_witch_charge_7: -1103780406
+      W_witch_charge_4: 1004095476
+      W_witch_charge_2: -1128307660
+      W_witch_charge_3: -49578204
+      W_witch_charge_5: 1686969148
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -27,9 +27,11 @@ public class Checkpoint : MonoBehaviour
         {
             if (used) { return; }
 
-            used = true;
-            gate.enabled = true;
-            GameManager.Instance.SaveCheckpoint(this);
+            // Saves and checks if both characters are to the left, if true wait till they are both passed
+            if (GameManager.Instance.SaveCheckpoint(this)) { 
+                used = true;
+                gate.enabled = true;
+            }
         }
     }
 }

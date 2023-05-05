@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
         catChar.ToggleMovement();
     }
 
-    public void SaveCheckpoint(Checkpoint cp)
+    public bool SaveCheckpoint(Checkpoint cp)
     {
         //Debug.Log("Saved Checkpoint");
         uint cpIndex = (uint)checkpoints.IndexOf(cp);
@@ -153,11 +153,13 @@ public class GameManager : MonoBehaviour
         // check if character is behind the wall
         if(character.transform.position.x < cp.transform.position.x)
         { // if it is move it
-            Vector3 newPos = cp.transform.position;
-            newPos.x -= 9.0f;
-            newPos.y += 1.0f;
-            character.transform.position = newPos;
+            //Vector3 newPos = cp.transform.position;
+            //newPos.x -= 9.0f;
+            //newPos.y += 1.0f;
+            //character.transform.position = newPos;
+            return false;
         }
+        return true;
     }
     public void SpawnAtLastCheckpoint()
     {

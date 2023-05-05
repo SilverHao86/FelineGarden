@@ -13,6 +13,7 @@ TagManager:
   - WaterPool
   - GardenerPickup
   - Dirt
+  - DialogueTrigger
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - CatPickup
   - GardenerPickup
   - Dirt
-  - 
+  - DialogueTrigger
   - 
   - 
   - 

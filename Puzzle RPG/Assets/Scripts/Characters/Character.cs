@@ -357,6 +357,8 @@ public class Character : MonoBehaviour
             TryPushBoxHelper(boxRb);
 
         }
+
+        
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -380,6 +382,14 @@ public class Character : MonoBehaviour
         {
             Vector2 respawnPoint = collision.gameObject.GetComponent<Water>().GetRespawn();
             this.transform.position = new Vector3(respawnPoint.x,respawnPoint.y, transform.position.z);
+        }
+
+        if (collision.gameObject.tag == "DialogueTrigger" && active)
+        {
+            if (!collision.gameObject.GetComponent<DialogueCollisionDetection>().alreadyTriggered)
+            {
+                Interactable?.Interact(this, collision.gameObject.GetComponent<DialogueCollisionDetection>().TriggerDialogue());
+            }
         }
     }
 

@@ -42,6 +42,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f3a382ffa45811e468276576ce32c8c6, type: 2}
   - {fileID: 11400000, guid: 239a6dc7c90dc5546bbf649ec61f1b66, type: 2}
   - {fileID: 11400000, guid: e41853482fef5e8428af166733d988be, type: 2}
-  <isGrounded>k__BackingField: 0
+  <catFlavorDialogues>k__BackingField:
+  - {fileID: 11400000, guid: 873e2ebf2dd88e44887b630117e95d9b, type: 2}
+  - {fileID: 11400000, guid: f599dd335ccb08f469ca432cfe2c75a0, type: 2}
+  - {fileID: 11400000, guid: afcc58d2dc13e8a429487af6afc19833, type: 2}
+  <isGrounded>k__BackingField: 1
   <isClimbing>k__BackingField: 0
   <canClimb>k__BackingField: 0

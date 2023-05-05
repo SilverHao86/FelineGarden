@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff1d27e3313b2b249913c9508c0c40f3, type: 3}
   m_Name: CatData
   m_EditorClassIdentifier: 
-  <movementSpeed>k__BackingField: 9
+  <movementSpeed>k__BackingField: 8
   <accelRate>k__BackingField: 4
-  <decelRate>k__BackingField: 9
+  <decelRate>k__BackingField: 8
   <velocityPower>k__BackingField: 1.2
   <frictionAmm>k__BackingField: 0.3
-  <jumpForce>k__BackingField: 9
+  <jumpForce>k__BackingField: 8
   <jumpCut>k__BackingField: 0.1
   <fallMult>k__BackingField: 2
   <jumpCooldown>k__BackingField: 0.2
@@ -33,6 +33,9 @@ MonoBehaviour:
   <boxLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 1024
-  <isGrounded>k__BackingField: 1
+  <dirtLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 0
+  <isGrounded>k__BackingField: 0
   <isClimbing>k__BackingField: 0
   <canClimb>k__BackingField: 0

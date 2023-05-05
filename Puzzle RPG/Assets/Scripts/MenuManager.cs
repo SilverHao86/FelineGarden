@@ -106,6 +106,14 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void CustomizeButtonClicked()
+    {
+        audioSource.clip = playSFX;
+        audioSource.Play();
+        Debug.Log("Customize");
+        SceneManager.LoadSceneAsync("Customization");
+    }
+
     /// <summary>
     /// Event whenever the player clicks the Option or Back button
     /// Plays a corresponding audio clip and then swaps between the options page and the landing page

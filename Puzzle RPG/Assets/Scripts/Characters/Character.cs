@@ -100,6 +100,8 @@ public class Character : MonoBehaviour
 
 
         charIndex = this is Gardener ? 0 : 1;
+        anim = gameObject.GetComponent<Animator>();
+        anim.runtimeAnimatorController = data.currentCharacter;
     }
 
     // Update is called once per frame

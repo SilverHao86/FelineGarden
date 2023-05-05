@@ -38,4 +38,5 @@ public class PauseManager : MonoBehaviour
     {
         Application.Quit();
     }
+
 }

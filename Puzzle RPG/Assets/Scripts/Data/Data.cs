@@ -158,7 +158,17 @@ public class Data : ScriptableObject
         gardenerLoc.y += 0.5f;
         gardener.gameObject.transform.position = gardenerLoc;
 
-        if(gardener.active && cat.active) { cat.active = false; }
+        if(gardener.active && cat.active) 
+        { 
+            //cat.Load()
+            //gardner.Load();
+            //cat.active = false;
+            //cat.Cam.enabled = false;
+            //cat.ToggleMovement();
+            //gardener.active = true;
+            //gardener.Cam.enabled = true;
+            //gardener.ToggleMovement();
+        }
     }
     private void FillCheckpoint()
     {

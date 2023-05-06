@@ -6,26 +6,37 @@ using TMPro;
 
 public class InventoryController : MonoBehaviour
 {
+    // Static instance so that it can be used universally
     public static InventoryController instance;
+
+    // List of both items in inventories, as well as which item is equipped
     public List<Item> witchItems = new List<Item>();
     public List<Item> catItems = new List<Item>();
     public int[] equippedIndex;
     private int[] equippedObserver;
 
-
+    // GameObject values for the creation of the inventory UI
+    // Parent for the witch inventory
     public Transform witchContent;
+    // Parent for the cat inventory
     public Transform catContent;
+    // Prefab to spawn an inventory item from
     public GameObject itemPrefab;
+    // Color to use when highlighting equipped item
     private Color equippedColor;
+    // Empty color to use when an item is not equipped
     private Color emptyColor;
 
-
+    // UI indicators for what the witch and cat have equipped
     [SerializeField] private GameObject witchEquipped;
     [SerializeField] private GameObject catEquipped;
+
+    // The amount of time the coroutine takes to animate the displayed swap
     [SerializeField] private float swapTime = 0.5f;
 
+    // Variable to track if the coroutine is running to not duplicate work
     private bool swapRunning = false;
-
+    // Create a parent coroutine to stop the exact coroutine if need be
     Coroutine coInstance = null;
 
     private void Awake()
@@ -35,6 +46,7 @@ public class InventoryController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Fill the equipped index and colors
         equippedIndex = new int[2];
         equippedIndex[0] = 0;
         equippedIndex[1] = 0;
@@ -47,17 +59,22 @@ public class InventoryController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If the current frame has different equipped items than last frame, update the indicators
         if(equippedIndex[0] != equippedObserver[0] || equippedIndex[1] != equippedObserver[1])
         {
             UpdateEquipDisplay();
         }
     }
 
+    /// <summary>
+    /// Adds a given item to the players inventory, based on the tags that it has.
+    /// </summary>
+    /// <param name="item">The item to add to inventory</param>
     public void Add(Item item)
     {
-        // Add code for duplicate items
-        // If they share id, add to amount rather than adding new item
-        // Add override to use name and amount only rather than the item object
+        // Finds which list the item would belong to
+        // If it shares a name with another, then add amounts
+        // If it doesn't share a name, add it to the list
         int sharedIndex = -1;
         if (item.type == "Witch")
         {
@@ -88,12 +105,19 @@ public class InventoryController : MonoBehaviour
         ListItems();
     }
 
+    /// <summary>
+    /// Removes a given object from both lists.
+    /// </summary>
+    /// <param name="item">The item to remove</param>
     public void Remove(Item item)
     {
         witchItems.Remove(item);
         catItems.Remove(item);
     }
 
+    /// <summary>
+    /// Updates the inventory display when needed through destroying and recreating the object tiles.
+    /// </summary>
     public void ListItems()
     {
         // Before displaying, clear content
@@ -105,6 +129,7 @@ public class InventoryController : MonoBehaviour
         {
             Destroy(obj.gameObject);
         }
+        // Display the witch list
         for (int i = 0; i < witchItems.Count; i++)
         {
             GameObject obj = Instantiate(itemPrefab, witchContent);
@@ -114,6 +139,7 @@ public class InventoryController : MonoBehaviour
             if (obj != null) obj.transform.GetChild(3).GetComponent<Image>().color = (equippedIndex[0] == i ? equippedColor : emptyColor);
 
         }
+        // Display the cat list
         for (int i = 0; i < catItems.Count; i++)
         {
             GameObject obj = Instantiate(itemPrefab, catContent);
@@ -123,9 +149,14 @@ public class InventoryController : MonoBehaviour
             if(obj != null) obj.transform.GetChild(3).GetComponent<Image>().color = (equippedIndex[1] == i ? equippedColor : emptyColor);
         }
     }
-
+    /// <summary>
+    /// Fills the item prefab with a given ScriptableObject item.
+    /// </summary>
+    /// <param name="itemObj">Object to fill</param>
+    /// <param name="item">ScriptableObject with information to utilize</param>
     public void FillInfo(GameObject itemObj, Item item)
     {
+        // If the amount is less than or equal to 0, equip a different item, list the items, and update equipped display
         if(item.amount <= 0)
         {
             if(itemObj.Equals(witchContent))
@@ -147,12 +178,18 @@ public class InventoryController : MonoBehaviour
             UpdateEquipDisplay();
             return;
         }
+
+        // Otherwise, fill in all of the relevant information
         itemObj.GetComponent<ItemController>().item = item;
         itemObj.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName; 
         itemObj.transform.GetChild(1).GetComponent<Image>().sprite = item.icon;
         itemObj.transform.GetChild(2).GetComponent<TMP_Text>().text = "" + item.amount;
     }
 
+    /// <summary>
+    /// Fill info only using the given item.
+    /// </summary>
+    /// <param name="item">Item to fill information based off of</param>
     public void FillInfo(Item item)
     {
         int witchIndex = ListHasItem(witchItems, item);
@@ -160,25 +197,34 @@ public class InventoryController : MonoBehaviour
         FillInfo(container, item);
     }
 
+    /// <summary>
+    /// Equip an item to a given character.
+    /// </summary>
+    /// <param name="item">The item intended to equip</param>
+    /// <param name="index">Optional, the index of the item on its list if known</param>
     public void EquipItem(Item item, int index = -1)
     { 
         int witchIndex = ListHasItem(witchItems, item);
 
         if (witchIndex != -1)
         {
+            // Clear the old equipped item if there was one
             if (equippedIndex[0] != -1 && equippedIndex[0] < witchItems.Count)
             {
                 witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = emptyColor;
             }
+            // Set the new index and set the equipped color
             equippedIndex[0] = index != -1 && index < witchItems.Count ? index : witchIndex;
             witchContent.GetChild(equippedIndex[0]).GetChild(3).GetComponent<Image>().color = equippedColor;
         }
         else
         {
+            // Clear the old equipped item if there was one
             if (equippedIndex[1] != -1 && equippedIndex[1] < catItems.Count)
             {
                 catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = emptyColor;
             }
+            // Set the new index and set the equipped color
             equippedIndex[1] = index != -1 && index < catItems.Count ? index : ListHasItem(catItems, item);
             catContent.GetChild(equippedIndex[1]).GetChild(3).GetComponent<Image>().color = equippedColor;
         }
@@ -224,8 +270,14 @@ public class InventoryController : MonoBehaviour
         //}
     }
 
+    /// <summary>
+    /// Equip an item based off of the index of the character and the index of the list it belongs to.
+    /// </summary>
+    /// <param name="equippedChar">The index of the character, 0 = Witch and 1 = Cat</param>
+    /// <param name="index">The index of the item on the character's inventory list</param>
     public void EquipIndex(int equippedChar, int index)
     {
+        // Find the count and if the index >= count, clamp the index to the end of the list
         int count = (equippedChar == 0 ? witchItems.Count : catItems.Count);
         if (index >= count)
         {
@@ -257,16 +309,34 @@ public class InventoryController : MonoBehaviour
         UpdateEquipDisplay();
     }
 
+    /// <summary>
+    /// Get the index of the item given the character index and the string name.
+    /// </summary>
+    /// <param name="charIndex">Witch = 0, Cat = 1</param>
+    /// <param name="name">The itemName of a given item</param>
+    /// <returns>-1 if the list doesn't contain the item, otherwise returns the index of the item.</returns>
     public int ListHasItem(int charIndex, string name)
     {
         return ListHasItem(charIndex == 0 ? witchItems : catItems, name);
     }
 
+    /// <summary>
+    /// Get the index of the item given the list and the item.
+    /// </summary>
+    /// <param name="list">The list to search through</param>
+    /// <param name="item">The item being searched for</param>
+    /// <returns>-1 if the list doesn't contain the item, otherwise returns the index of the item.</returns>
     public int ListHasItem(List<Item> list, Item item)
     {
         return ListHasItem(list, item.itemName);
     }
 
+    /// <summary>
+    /// Get the index of an item given the list to search and the string name.
+    /// </summary>
+    /// <param name="list">The list to search through</param>
+    /// <param name="name">The name of the item to search for</param>
+    /// <returns>-1 if the list doesn't contain the item, otherwise returns the index of the item.</returns>
     public int ListHasItem(List<Item> list, string name)
     {
         int index = -1;
@@ -280,27 +350,33 @@ public class InventoryController : MonoBehaviour
         return index;
     }
 
+    /// <summary>
+    /// Updates the main equipped item display for the player when called.
+    /// </summary>
     public void UpdateEquipDisplay()
-    {        
+    {   
+        // If there isn't an item equipped, clear the display
         if(equippedIndex[0] >= witchItems.Count || equippedIndex[0] == -1)
         {
             witchEquipped.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
             witchEquipped.transform.GetChild(1).gameObject.SetActive(false);
             witchEquipped.transform.GetChild(2).GetComponent<TMP_Text>().text = "";
         }
+        // Otherwise, add the relevant information to the display
         else
         {
             Debug.Log(equippedIndex[0]);
             FillInfo(witchEquipped, witchItems[equippedIndex[0]]);
             witchEquipped.transform.GetChild(1).gameObject.SetActive(true);
         }
-
-        if(equippedIndex[1] >= catItems.Count || equippedIndex[1] == -1)
+        // If there isn't an item equipped, clear the display
+        if (equippedIndex[1] >= catItems.Count || equippedIndex[1] == -1)
         {
             catEquipped.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
             catEquipped.transform.GetChild(1).gameObject.SetActive(false);
             catEquipped.transform.GetChild(2).GetComponent<TMP_Text>().text = "";
         }
+        // Otherwise, add the relevant information to the display
         else
         {
             FillInfo(catEquipped, catItems[equippedIndex[1]]);
@@ -311,8 +387,8 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// Head function to swap the display of equipped items
-    /// Disables a previous coroutine if active and then starts a new one
+    /// Head function to swap the display of equipped items. <br/>
+    /// Disables a previous coroutine if active and then starts a new one.
     /// </summary>
     /// <param name="activeChar"></param>
     public void SwapEquippedDisplay(int activeChar)
@@ -328,12 +404,12 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// PRAISE THE UNIT CIRCLE
-    /// Moves the two equipped items to swap their positions and scales in a circular manner
+    /// PRAISE THE UNIT CIRCLE. <br/>
+    /// Moves the two equipped items to swap their positions and scales in a circular manner.
     /// </summary>
     /// <param name="time">The total time for the objects to interpolate between</param>
     /// <param name="activeChar">The index of the active character, 0 = witch and 1 = cat</param>
-    /// <returns></returns>
+    /// <returns>IEnumerator return value</returns>
     IEnumerator MoveEquipped(float time, int activeChar)
     {
         // Boolean to check the state of the coroutine in the class

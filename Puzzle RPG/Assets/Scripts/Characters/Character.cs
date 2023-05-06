@@ -508,11 +508,18 @@ public class Character : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Using InputAction, equips a given number input for only the active character
+    /// </summary>
+    /// <param name="ctx">The input action callback</param>
     private void EquipFromKeyValue(InputAction.CallbackContext ctx)
     {
+        // If the given character isn't active, don't resolve
         if (!active) return;
+        // Try to read the value but be sure to account for potential failure
         int numKeyValue = 0;
         int.TryParse(ctx.control.name, out numKeyValue);
+        // If the read didn't fail, equip the index given for the specific character
         if (numKeyValue > 0) InventoryController.instance.EquipIndex(charIndex, numKeyValue - 1);
         
     }
